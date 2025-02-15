@@ -1,14 +1,22 @@
 hologram:
 
-    enabled: true # enable hologram features, requires FancyHolograms
+    # Hologram settings
+    # Holograms are displayed above the soul's grave
+    # This features requires FancyHolograms
 
+    # Enable/Disable this feature entirely
+    enabled: true
+
+    # Configure the location of the hologram relative to the soul's location
     x-offset: 0.0 # x-offset from the soul's location
     y-offset: 2.5 # y-offset from the soul's location
     z-offset: 0.0 # z-offset from the soul's location
 
+    # Configure the background of the hologram, defaults to the default hologram background
     custom-background: false # enable custom background
     background-color: "1,100,255,79" # ARGB format
 
+    # Configure the text of the hologram, using MiniMessage and/or Legacy Formatting
     lines:
         - ""
         - "<aqua>☠ <b>SOUL GRAVE</b> <dark_gray>» <white>{soulOwner}"

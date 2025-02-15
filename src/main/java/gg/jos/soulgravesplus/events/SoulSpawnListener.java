@@ -32,6 +32,11 @@ public class SoulSpawnListener implements Listener {
 
     @EventHandler
     public void onSoulSpawn(SoulSpawnEvent event) {
+
+        if (!soulGravesPlus.hologramEnabled) {
+            return;
+        }
+
         // Get the grave location and adjust it to be above the grave
         Location soulLocation = event.getSoulLocation();
         Location location = soulLocation.clone().add(soulGravesPlus.hologramXOffset, soulGravesPlus.hologramYOffset, soulGravesPlus.hologramZOffset);

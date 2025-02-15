@@ -29,32 +29,18 @@ public final class SoulGravesPlus extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
         }
 
-        // Config
+        // Logger Messages
+
+        this.getLogger().info("\u001B[35mSoulGravesPlus enabled! Made by JosTheDude with \u001B[31m<3\u001B[35m and cookies\u001B[0m\n");
+        this.getLogger().info("\u001B[37mPlease report any issues to \u001B[37m\u001B[4mhttps://github.com/JosTheDude/SoulGravesPlus\u001B[0m");
+
+        // Config & Feature Subsets
         saveDefaultConfig();
         updateConfig(this);
-
-        // Feature SUbsets
-        if (this.hologramEnabled) {
-            hologramFeatures(this);
-        } else {
-            this.getLogger().warning("Hologram features are disabled in the config.yml.");
-        }
 
         // Commands
         this.getCommand("soulgravesplus").setExecutor(new ReloadCommand(this));
 
-    }
-
-    private void hologramFeatures(SoulGravesPlus plugin) {
-        if (plugin.getServer().getPluginManager().getPlugin("FancyHolograms") != null) {
-            HologramManager manager = FancyHologramsPlugin.get().getHologramManager();
-
-            plugin.getServer().getPluginManager().registerEvents(new SoulSpawnListener(this, manager, this), this);
-            plugin.getServer().getPluginManager().registerEvents(new SoulPickupListener(this, manager), this);
-            plugin.getServer().getPluginManager().registerEvents(new SoulExplodeListener(this, manager), this);
-
-            plugin.getLogger().warning("FancyHolograms found! Hologram features enabled.");
-        }
     }
 
     public void updateConfig(SoulGravesPlus plugin) {
@@ -69,7 +55,33 @@ public final class SoulGravesPlus extends JavaPlugin {
 
         plugin.hologramLines = plugin.getConfig().getStringList("hologram.lines");
 
+        featureSubsets(plugin);
+
     }
-    
+
+    private void featureSubsets(SoulGravesPlus plugin) {
+
+        // Hologram Features
+        if (plugin.hologramEnabled) {
+            hologramFeatures(plugin);
+        } else {
+            plugin.getLogger().warning("Hologram features are disabled in the config.yml.");
+        }
+
+    }
+
+    private void hologramFeatures(SoulGravesPlus plugin) {
+        if (plugin.getServer().getPluginManager().getPlugin("FancyHolograms") != null) {
+            HologramManager manager = FancyHologramsPlugin.get().getHologramManager();
+
+            plugin.getServer().getPluginManager().registerEvents(new SoulSpawnListener(this, manager, this), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulPickupListener(this, manager), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulExplodeListener(this, manager), this);
+
+            plugin.getLogger().info("FancyHolograms found! Hologram features enabled.");
+        } else {
+            plugin.getLogger().warning("FancyHolograms not found! Hologram features disabled.");
+        }
+    }
     
 }
