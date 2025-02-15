@@ -1,5 +1,7 @@
 hologram:
 
+    enabled: true # enable hologram features, requires FancyHolograms
+
     x-offset: 0.0 # x-offset from the soul's location
     y-offset: 2.5 # y-offset from the soul's location
     z-offset: 0.0 # z-offset from the soul's location

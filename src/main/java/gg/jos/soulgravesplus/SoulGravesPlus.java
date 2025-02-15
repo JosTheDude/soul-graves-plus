@@ -12,45 +12,53 @@ import java.util.List;
 
 public final class SoulGravesPlus extends JavaPlugin {
 
-    public List<String> hologramLines;
+    // Hologram Config
+    public boolean hologramEnabled;
     public double hologramXOffset;
     public double hologramYOffset;
     public double hologramZOffset;
     public boolean hologramBackground;
     public String[] hologramBackgroundColor;
+    public List<String> hologramLines;
 
     @Override
     public void onEnable() {
 
         if (getServer().getPluginManager().getPlugin("SoulGraves") == null) {
-            getLogger().warning("SoulGraves not found, disabling SoulGravesPlus");
+            this.getLogger().warning("SoulGraves not found, disabling SoulGravesPlus");
             getServer().getPluginManager().disablePlugin(this);
         }
-
-        if (getServer().getPluginManager().getPlugin("FancyHolograms") == null) {
-            getLogger().warning("FancyHolograms not found, disabling SoulGravesPlus");
-            getServer().getPluginManager().disablePlugin(this);
-        }
-
-        // API Managers
-        HologramManager manager = FancyHologramsPlugin.get().getHologramManager();
 
         // Config
         saveDefaultConfig();
         updateConfig(this);
 
-        // Events
-        getServer().getPluginManager().registerEvents(new SoulSpawnListener(this, manager, this), this);
-        getServer().getPluginManager().registerEvents(new SoulPickupListener(this, manager), this);
-        getServer().getPluginManager().registerEvents(new SoulExplodeListener(this, manager), this);
+        // Feature SUbsets
+        if (this.hologramEnabled) {
+            hologramFeatures(this);
+        } else {
+            this.getLogger().warning("Hologram features are disabled in the config.yml.");
+        }
 
         // Commands
         this.getCommand("soulgravesplus").setExecutor(new ReloadCommand(this));
 
     }
 
-    public static void updateConfig(SoulGravesPlus plugin) {
-        plugin.hologramLines = plugin.getConfig().getStringList("hologram.lines");
+    private void hologramFeatures(SoulGravesPlus plugin) {
+        if (plugin.getServer().getPluginManager().getPlugin("FancyHolograms") != null) {
+            HologramManager manager = FancyHologramsPlugin.get().getHologramManager();
+
+            plugin.getServer().getPluginManager().registerEvents(new SoulSpawnListener(this, manager, this), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulPickupListener(this, manager), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulExplodeListener(this, manager), this);
+
+            plugin.getLogger().warning("FancyHolograms found! Hologram features enabled.");
+        }
+    }
+
+    public void updateConfig(SoulGravesPlus plugin) {
+        plugin.hologramEnabled = plugin.getConfig().getBoolean("hologram.enabled");
 
         plugin.hologramXOffset = plugin.getConfig().getDouble("hologram.x-offset");
         plugin.hologramYOffset = plugin.getConfig().getDouble("hologram.y-offset");
@@ -59,5 +67,9 @@ public final class SoulGravesPlus extends JavaPlugin {
         plugin.hologramBackground = plugin.getConfig().getBoolean("hologram.background");
         plugin.hologramBackgroundColor = plugin.getConfig().getString("hologram.background-color").split(",");
 
+        plugin.hologramLines = plugin.getConfig().getStringList("hologram.lines");
+
     }
+    
+    
 }

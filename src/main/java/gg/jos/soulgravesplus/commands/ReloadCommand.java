@@ -27,7 +27,7 @@ public class ReloadCommand implements CommandExecutor {
         }
 
         plugin.reloadConfig();
-        SoulGravesPlus.updateConfig(plugin);
+        plugin.updateConfig(plugin);
 
         sender.sendMessage("§aSoulGravesPlus configuration reloaded.");
         return true;
