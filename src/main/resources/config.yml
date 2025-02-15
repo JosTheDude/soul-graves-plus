@@ -7,8 +7,12 @@ hologram:
     z-offset: 0.0 # z-offset from the soul's location
 
     custom-background: false # enable custom background
-    background-color: "100,100,255,79" # ARGB format
+    background-color: "1,100,255,79" # ARGB format
 
     lines:
-    - "<aqua><b>SOUL GRAVE</b> <dark_gray>» <white>{soulOwner}"
-    - "<gray>Passed away at {formattedTime}"
+        - ""
+        - "<aqua>☠ <b>SOUL GRAVE</b> <dark_gray>» <white>{soulOwner}"
+        - "<gray>Passed away at {formattedTime}"
+        - ""
+        - "<aqua> [ᴛᴏᴜᴄʜ ᴛʜᴇ ɢʀᴀᴠᴇ ᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴇꜱꜱᴇɴᴄᴇ] "
+        - ""
