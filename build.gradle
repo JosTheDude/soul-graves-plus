@@ -5,6 +5,8 @@ plugins {
 group = 'gg.jos'
 version = '1.0'
 
+
+
 repositories {
     mavenCentral()
     maven {
@@ -15,10 +17,17 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven { url 'https://jitpack.io' }
+    maven {
+        name = "fancypluginsReleases"
+        url = uri("https://repo.fancyplugins.de/releases")
+    }
 }
 
 dependencies {
-compileOnly "io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT"
+    compileOnly "io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT"
+    implementation "com.github.FaultyFunctions:SoulGraves:v1.3.0"
+    compileOnly "de.oliver:FancyHolograms:2.4.2"
 }
 
 def targetJavaVersion = 21

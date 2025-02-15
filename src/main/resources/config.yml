@@ -1,0 +1,12 @@
+hologram:
+
+    x-offset: 0.0 # x-offset from the soul's location
+    y-offset: 2.5 # y-offset from the soul's location
+    z-offset: 0.0 # z-offset from the soul's location
+
+    custom-background: false # enable custom background
+    background-color: "100,100,255,79" # ARGB format
+
+    lines:
+    - "<aqua><b>SOUL GRAVE</b> <dark_gray>» <white>{soulOwner}"
+    - "<gray>Passed away at {formattedTime}"
