@@ -6,6 +6,9 @@ A free extension for [Soul Graves](https://github.com/FaultyFunctions/SoulGraves
 
 ## Dependencies
 - [SoulGraves](https://github.com/FaultyFunctions/SoulGraves)
+
+## Soft Dependencies
+Not strictly required but used for specific features or add additional features
 - [FancyHolograms](https://modrinth.com/plugin/fancyholograms)
 
 ## Support & Issues
