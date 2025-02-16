@@ -3,6 +3,7 @@ A free extension for [Soul Graves](https://github.com/FaultyFunctions/SoulGraves
 
 ## Features
 - Customizable Hologram above Active Soul
+- Configurable Logger for Soul Spawns, Pickups, and Explosions in Console
 
 ## Dependencies
 - [SoulGraves](https://github.com/FaultyFunctions/SoulGraves) | Required
