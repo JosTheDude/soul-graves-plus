@@ -3,14 +3,27 @@ package gg.jos.soulgravesplus;
 import de.oliver.fancyholograms.api.FancyHologramsPlugin;
 import de.oliver.fancyholograms.api.HologramManager;
 import gg.jos.soulgravesplus.commands.ReloadCommand;
-import gg.jos.soulgravesplus.events.SoulExplodeListener;
-import gg.jos.soulgravesplus.events.SoulPickupListener;
-import gg.jos.soulgravesplus.events.SoulSpawnListener;
+import gg.jos.soulgravesplus.events.hologram.SoulExplodeHologramListener;
+import gg.jos.soulgravesplus.events.hologram.SoulPickupHologramListener;
+import gg.jos.soulgravesplus.events.hologram.SoulSpawnHologramListener;
+import gg.jos.soulgravesplus.events.logger.SoulExplodeLoggerListener;
+import gg.jos.soulgravesplus.events.logger.SoulPickupLoggerListener;
+import gg.jos.soulgravesplus.events.logger.SoulSpawnLoggerListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
 public final class SoulGravesPlus extends JavaPlugin {
+
+    // Logger Config
+    public boolean loggerEnabled;
+    public boolean logSoulSpawns;
+    public boolean logSoulPickups;
+    public boolean logSoulExplosions;
+
+    public String logSoulSpawnsMessage;
+    public String logSoulPickupsMessage;
+    public String logSoulExplosionsMessage;
 
     // Hologram Config
     public boolean hologramEnabled;
@@ -44,6 +57,17 @@ public final class SoulGravesPlus extends JavaPlugin {
     }
 
     public void updateConfig(SoulGravesPlus plugin) {
+        // Logger Features
+        plugin.loggerEnabled = plugin.getConfig().getBoolean("logger.enabled");
+        plugin.logSoulSpawns = plugin.getConfig().getBoolean("logger.log-soul-spawns");
+        plugin.logSoulPickups = plugin.getConfig().getBoolean("logger.log-soul-pickups");
+        plugin.logSoulExplosions = plugin.getConfig().getBoolean("logger.log-soul-explosions");
+
+        plugin.logSoulSpawnsMessage = plugin.getConfig().getString("logger.log-soul-spawns-message");
+        plugin.logSoulPickupsMessage = plugin.getConfig().getString("logger.log-soul-pickups-message");
+        plugin.logSoulExplosionsMessage = plugin.getConfig().getString("logger.log-soul-explosions-message");
+
+        // Hologram Features
         plugin.hologramEnabled = plugin.getConfig().getBoolean("hologram.enabled");
 
         plugin.hologramXOffset = plugin.getConfig().getDouble("hologram.x-offset");
@@ -61,6 +85,13 @@ public final class SoulGravesPlus extends JavaPlugin {
 
     private void featureSubsets(SoulGravesPlus plugin) {
 
+        // Logger Feature
+        if (plugin.loggerEnabled) {
+            loggerFeatures(plugin);
+        } else {
+            plugin.getLogger().warning("Logger features are disabled in the config.yml.");
+        }
+
         // Hologram Features
         if (plugin.hologramEnabled) {
             hologramFeatures(plugin);
@@ -70,13 +101,22 @@ public final class SoulGravesPlus extends JavaPlugin {
 
     }
 
+    private void loggerFeatures(SoulGravesPlus plugin) {
+
+        plugin.getServer().getPluginManager().registerEvents(new SoulSpawnLoggerListener(this, plugin), this);
+        plugin.getServer().getPluginManager().registerEvents(new SoulPickupLoggerListener(this, plugin), this);
+        plugin.getServer().getPluginManager().registerEvents(new SoulExplodeLoggerListener(this, plugin), this);
+
+        plugin.getLogger().info("Logger features enabled.");
+    }
+
     private void hologramFeatures(SoulGravesPlus plugin) {
         if (plugin.getServer().getPluginManager().getPlugin("FancyHolograms") != null) {
             HologramManager manager = FancyHologramsPlugin.get().getHologramManager();
 
-            plugin.getServer().getPluginManager().registerEvents(new SoulSpawnListener(this, manager, this), this);
-            plugin.getServer().getPluginManager().registerEvents(new SoulPickupListener(this, manager), this);
-            plugin.getServer().getPluginManager().registerEvents(new SoulExplodeListener(this, manager), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulSpawnHologramListener(this, manager, this), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulPickupHologramListener(this, manager), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulExplodeHologramListener(this, manager), this);
 
             plugin.getLogger().info("FancyHolograms found! Hologram features enabled.");
         } else {

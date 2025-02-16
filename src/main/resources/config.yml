@@ -1,3 +1,29 @@
+logger:
+
+    # Logger settings
+    # Logs specific actions pertaining to souls
+
+    # Enable/Disable this feature entirely
+    enabled: true
+
+    log-soul-spawns: true # Log soul spawns (when a soul is created)
+    log-soul-pickups: true # Log soul pickups (when they are picked up by the player)
+    log-soul-explosions: true # Log soul explosions (otherwise known as when they disappear)
+
+    # Log format
+
+    # Placeholders:
+    # {soulOwner} for soul owner (player)
+    # {x} for x coordinate
+    # {y} for y coordinate
+    # {z} for z coordinate
+    # Formatted by ANSI color codes, NOT legacy or MiniMessage
+
+    log-soul-spawns-message: "\u001B[37m[SoulTracker] \u001B[92mSoul spawned for \u001B[93m{soulOwner}\u001B[92m at \u001B[93m{x} {y} {z}\u001B[0m"
+    log-soul-pickups-message: "\u001B[37m[SoulTracker] \u001B[93m{soulOwner}\u001B[92m picked up a soul at \u001B[93m{x} {y} {z}\u001B[0m"
+    log-soul-explosions-message: "\u001B[37m[SoulTracker] \u001B[91mSoul for \u001B[93m{soulOwner}\u001B[91m exploded at \u001B[93m{x} {y} {z}\u001B[0m"
+
+
 hologram:
 
     # Hologram settings
@@ -17,6 +43,11 @@ hologram:
     background-color: "1,100,255,79" # ARGB format
 
     # Configure the text of the hologram, using MiniMessage and/or Legacy Formatting
+
+    # Placeholders:
+    # {soulOwner} for soul owner (player)
+    # {formattedTime} for formatted time of death
+    # DEPRECATED: {soulTime} for configured time for soul expiry (non-updating)
     lines:
         - ""
         - "<aqua>☠ <b>SOUL GRAVE</b> <dark_gray>» <white>{soulOwner}"

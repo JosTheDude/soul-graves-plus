@@ -1,15 +1,12 @@
-package gg.jos.soulgravesplus.events;
+package gg.jos.soulgravesplus.events.hologram;
 
 import de.oliver.fancyholograms.api.HologramManager;
 import de.oliver.fancyholograms.api.data.TextHologramData;
 import de.oliver.fancyholograms.api.hologram.Hologram;
 import dev.faultyfunctions.soulgraves.api.event.SoulSpawnEvent;
 import gg.jos.soulgravesplus.SoulGravesPlus;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Color;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -17,14 +14,13 @@ import org.bukkit.plugin.Plugin;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class SoulSpawnListener implements Listener {
+public class SoulSpawnHologramListener implements Listener {
     private final Plugin plugin;
     private final HologramManager manager;
     private final SoulGravesPlus soulGravesPlus;
 
-    public SoulSpawnListener(Plugin plugin, HologramManager manager, SoulGravesPlus soulGravesPlus) {
+    public SoulSpawnHologramListener(Plugin plugin, HologramManager manager, SoulGravesPlus soulGravesPlus) {
         this.plugin = plugin;
         this.manager = manager;
         this.soulGravesPlus = soulGravesPlus;
