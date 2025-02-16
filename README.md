@@ -1,6 +1,8 @@
 # SoulGravesPlus
 A free extension for [Soul Graves](https://github.com/FaultyFunctions/SoulGraves) with a variety of useful features. Built for 1.21+
 
+Spigot Page: [https://www.spigotmc.org/resources/soul-graves-plus.122635/](https://www.spigotmc.org/resources/soul-graves-plus.122635/)
+
 ## Features
 - Customizable Hologram above Active Soul
 - Configurable Logger for Soul Spawns, Pickups, and Explosions in Console
