@@ -25,7 +25,7 @@ public class SoulExplodeLoggerListener implements Listener {
             return;
         }
 
-        if (!soulGravesPlus.logSoulPickups) {
+        if (!soulGravesPlus.logSoulExplosions) {
             return;
         }
 
