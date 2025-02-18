@@ -19,3 +19,5 @@ If you'd like to contribute, simply make an issue with your proposed feature/enh
 
 ## Support & Issues
 Want to make a suggestion? Having an issue? Open a GitHub Issue [here](https://github.com/JosTheDude/SoulGravesPlus/issues) and let me know! 
+
+Found an exploit? Reach out ASAP to `@josbot` over Discord and let me know.
