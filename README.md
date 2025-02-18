@@ -12,7 +12,7 @@ Spigot Page: [https://www.spigotmc.org/resources/soul-graves-plus.122635/](https
 
 ## Soft Dependencies
 Not strictly required but used for specific features or add additional features
-- [FancyHolograms](https://modrinth.com/plugin/fancyholograms) | Required for Holograms
+- [FancyHolograms](https://modrinth.com/plugin/fancyholograms) or [DecentHolograms](https://www.spigotmc.org/resources/decentholograms-1-8-1-21-4-papi-support-no-dependencies.96927/) | Required for Holograms
 
 ## Contributing
 If you'd like to contribute, simply make an issue with your proposed feature/enhancement or browse existing issues that are approved and make a pull request! PRs are accepted at this time.
