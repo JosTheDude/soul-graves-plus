@@ -1,19 +1,18 @@
-package gg.jos.soulgravesplus.events.hologram;
+package gg.jos.soulgravesplus.events.hologram.decentholograms;
 
 import de.oliver.fancyholograms.api.HologramManager;
 import de.oliver.fancyholograms.api.hologram.Hologram;
 import dev.faultyfunctions.soulgraves.api.event.SoulExplodeEvent;
+import eu.decentsoftware.holograms.api.DHAPI;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
-public class SoulExplodeHologramListener implements Listener {
+public class SoulExplodeDecentHologramListener implements Listener {
     private final Plugin plugin;
-    private final HologramManager manager;
 
-    public SoulExplodeHologramListener(Plugin plugin, HologramManager manager) {
+    public SoulExplodeDecentHologramListener(Plugin plugin) {
         this.plugin = plugin;
-        this.manager = manager;
     }
 
     @EventHandler
@@ -21,12 +20,7 @@ public class SoulExplodeHologramListener implements Listener {
 
         String hologramName = "grave_hologram_" + event.getSoul().getMarkerUUID();
 
-        Hologram hologram = manager.getHologram(hologramName).orElse(null);
+        DHAPI.removeHologram(hologramName);
 
-        if (hologram == null) {
-            return;
-        }
-
-        manager.removeHologram(hologram);
     }
 }

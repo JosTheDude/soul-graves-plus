@@ -3,9 +3,12 @@ package gg.jos.soulgravesplus;
 import de.oliver.fancyholograms.api.FancyHologramsPlugin;
 import de.oliver.fancyholograms.api.HologramManager;
 import gg.jos.soulgravesplus.commands.ReloadCommand;
-import gg.jos.soulgravesplus.events.hologram.SoulExplodeHologramListener;
-import gg.jos.soulgravesplus.events.hologram.SoulPickupHologramListener;
-import gg.jos.soulgravesplus.events.hologram.SoulSpawnHologramListener;
+import gg.jos.soulgravesplus.events.hologram.decentholograms.SoulExplodeDecentHologramListener;
+import gg.jos.soulgravesplus.events.hologram.decentholograms.SoulPickupDecentHologramListener;
+import gg.jos.soulgravesplus.events.hologram.decentholograms.SoulSpawnDecentHologramListener;
+import gg.jos.soulgravesplus.events.hologram.fancyholograms.SoulExplodeFancyHologramListener;
+import gg.jos.soulgravesplus.events.hologram.fancyholograms.SoulPickupFancyHologramListener;
+import gg.jos.soulgravesplus.events.hologram.fancyholograms.SoulSpawnFancyHologramListener;
 import gg.jos.soulgravesplus.events.logger.SoulExplodeLoggerListener;
 import gg.jos.soulgravesplus.events.logger.SoulPickupLoggerListener;
 import gg.jos.soulgravesplus.events.logger.SoulSpawnLoggerListener;
@@ -33,6 +36,7 @@ public final class SoulGravesPlus extends JavaPlugin {
     public boolean hologramBackground;
     public String[] hologramBackgroundColor;
     public List<String> hologramLines;
+    public String hologramManager; // Unused but exists for future needs
 
     @Override
     public void onEnable() {
@@ -112,15 +116,27 @@ public final class SoulGravesPlus extends JavaPlugin {
 
     private void hologramFeatures(SoulGravesPlus plugin) {
         if (plugin.getServer().getPluginManager().getPlugin("FancyHolograms") != null) {
+
+            plugin.hologramManager = "FancyHolograms";
+
             HologramManager manager = FancyHologramsPlugin.get().getHologramManager();
 
-            plugin.getServer().getPluginManager().registerEvents(new SoulSpawnHologramListener(this, manager, this), this);
-            plugin.getServer().getPluginManager().registerEvents(new SoulPickupHologramListener(this, manager), this);
-            plugin.getServer().getPluginManager().registerEvents(new SoulExplodeHologramListener(this, manager), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulSpawnFancyHologramListener(this, manager, this), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulPickupFancyHologramListener(this, manager), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulExplodeFancyHologramListener(this, manager), this);
 
             plugin.getLogger().info("FancyHolograms found! Hologram features enabled.");
+        } else if (plugin.getServer().getPluginManager().getPlugin("DecentHolograms") != null) {
+
+            plugin.hologramManager = "DecentHolograms";
+
+            plugin.getServer().getPluginManager().registerEvents(new SoulSpawnDecentHologramListener(this, this), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulPickupDecentHologramListener(this), this);
+            plugin.getServer().getPluginManager().registerEvents(new SoulExplodeDecentHologramListener(this), this);
+
+            plugin.getLogger().info("DecentHolograms found! Hologram features enabled.");
         } else {
-            plugin.getLogger().warning("FancyHolograms not found! Hologram features disabled.");
+            plugin.getLogger().warning("FancyHolograms or DecentHolograms not found! Hologram features disabled.");
         }
     }
     

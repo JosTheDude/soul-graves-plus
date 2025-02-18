@@ -1,4 +1,4 @@
-package gg.jos.soulgravesplus.events.hologram;
+package gg.jos.soulgravesplus.events.hologram.fancyholograms;
 
 import de.oliver.fancyholograms.api.HologramManager;
 import de.oliver.fancyholograms.api.hologram.Hologram;
@@ -7,11 +7,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
-public class SoulPickupHologramListener implements Listener {
+public class SoulPickupFancyHologramListener implements Listener {
     private final Plugin plugin;
     private final HologramManager manager;
 
-    public SoulPickupHologramListener(Plugin plugin, HologramManager manager) {
+    public SoulPickupFancyHologramListener(Plugin plugin, HologramManager manager) {
         this.plugin = plugin;
         this.manager = manager;
     }

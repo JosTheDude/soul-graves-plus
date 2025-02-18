@@ -28,17 +28,18 @@ hologram:
 
     # Hologram settings
     # Holograms are displayed above the soul's grave
-    # This features requires FancyHolograms
+    # This features requires FancyHolograms or DecentHolograms
 
     # Enable/Disable this feature entirely
     enabled: true
 
     # Configure the location of the hologram relative to the soul's location
     x-offset: 0.0 # x-offset from the soul's location
-    y-offset: 2.5 # y-offset from the soul's location
+    y-offset: 3.5 # y-offset from the soul's location
     z-offset: 0.0 # z-offset from the soul's location
 
     # Configure the background of the hologram, defaults to the default hologram background
+    # This has no effect if you are using DecentHolograms
     custom-background: false # enable custom background
     background-color: "1,100,255,79" # ARGB format
 
@@ -50,8 +51,8 @@ hologram:
     # DEPRECATED: {soulTime} for configured time for soul expiry (non-updating)
     lines:
         - ""
-        - "<aqua>☠ <b>SOUL GRAVE</b> <dark_gray>» <white>{soulOwner}"
-        - "<gray>Passed away at {formattedTime}"
+        - "&b☠ &lSOUL GRAVE&r &8» &f{soulOwner}"
+        - "&7Passed away at &f{formattedTime}"
         - ""
-        - "<aqua> [ᴛᴏᴜᴄʜ ᴛʜᴇ ɢʀᴀᴠᴇ ᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴇꜱꜱᴇɴᴄᴇ] "
+        - "&b [ᴛᴏᴜᴄʜ ᴛʜᴇ ɢʀᴀᴠᴇ ᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴇꜱꜱᴇɴᴄᴇ] &r"
         - ""
