@@ -73,9 +73,9 @@ public final class SoulGravesPlus extends JavaPlugin {
     }
 
     public void updateConfig() {
-        // Format Features
-        this.dateTimeFormatter = DateTimeFormatter.ofPattern(this.getConfig().getString("formatters.date", "yyyy-MM-dd HH:mm:ss"));
-        this.timeFormat = this.getConfig().getString("formatters.time", "{m}m {s}s");
+        // Option Features
+        this.dateTimeFormatter = DateTimeFormatter.ofPattern(this.getConfig().getString("options.date-format", "yyyy-MM-dd HH:mm:ss"));
+        this.timeFormat = this.getConfig().getString("options.time-format", "{m}m {s}s");
 
         // Logger Features
         this.loggerEnabled = this.getConfig().getBoolean("logger.enabled", true);
