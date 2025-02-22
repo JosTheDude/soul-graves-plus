@@ -6,12 +6,6 @@ import de.oliver.fancyholograms.api.hologram.Hologram;
 import dev.faultyfunctions.soulgraves.SoulGraves;
 import dev.faultyfunctions.soulgraves.utils.Soul;
 import gg.jos.soulgravesplus.SoulGravesPlus;
-import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
 
 public class SoulUpdaterFancyHologram implements Runnable {
     private final HologramManager manager;

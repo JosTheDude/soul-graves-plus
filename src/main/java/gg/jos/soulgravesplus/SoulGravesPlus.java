@@ -4,29 +4,24 @@ import de.oliver.fancyholograms.api.FancyHologramsPlugin;
 import de.oliver.fancyholograms.api.HologramManager;
 import dev.faultyfunctions.soulgraves.utils.Soul;
 import gg.jos.soulgravesplus.commands.ReloadCommand;
-import gg.jos.soulgravesplus.events.hologram.decentholograms.SoulExplodeDecentHologramListener;
-import gg.jos.soulgravesplus.events.hologram.decentholograms.SoulPickupDecentHologramListener;
-import gg.jos.soulgravesplus.events.hologram.decentholograms.SoulSpawnDecentHologramListener;
-import gg.jos.soulgravesplus.events.hologram.decentholograms.SoulUpdaterDecentHologram;
-import gg.jos.soulgravesplus.events.hologram.fancyholograms.SoulExplodeFancyHologramListener;
-import gg.jos.soulgravesplus.events.hologram.fancyholograms.SoulPickupFancyHologramListener;
-import gg.jos.soulgravesplus.events.hologram.fancyholograms.SoulSpawnFancyHologramListener;
-import gg.jos.soulgravesplus.events.hologram.fancyholograms.SoulUpdaterFancyHologram;
+import gg.jos.soulgravesplus.events.hologram.decentholograms.*;
+import gg.jos.soulgravesplus.events.hologram.fancyholograms.*;
 import gg.jos.soulgravesplus.events.logger.SoulExplodeLoggerListener;
 import gg.jos.soulgravesplus.events.logger.SoulPickupLoggerListener;
 import gg.jos.soulgravesplus.events.logger.SoulSpawnLoggerListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public final class SoulGravesPlus extends JavaPlugin {
 
     // Formatting Config
-    public DateTimeFormatter dateTimeFormatter;
+    public SimpleDateFormat dateTimeFormatter;
     public String timeFormat;
 
     // Logger Config
@@ -74,7 +69,7 @@ public final class SoulGravesPlus extends JavaPlugin {
 
     public void updateConfig() {
         // Option Features
-        this.dateTimeFormatter = DateTimeFormatter.ofPattern(this.getConfig().getString("options.date-format", "yyyy-MM-dd HH:mm:ss"));
+        this.dateTimeFormatter = new SimpleDateFormat(this.getConfig().getString("options.date-format", "yyyy-MM-dd HH:mm:ss"));
         this.timeFormat = this.getConfig().getString("options.time-format", "{m}m {s}s");
 
         // Logger Features
@@ -150,6 +145,7 @@ public final class SoulGravesPlus extends JavaPlugin {
             this.getServer().getPluginManager().registerEvents(new SoulSpawnFancyHologramListener(this, manager), this);
             this.getServer().getPluginManager().registerEvents(new SoulPickupFancyHologramListener(this, manager), this);
             this.getServer().getPluginManager().registerEvents(new SoulExplodeFancyHologramListener(this, manager), this);
+            this.getServer().getPluginManager().registerEvents(new SoulDeleteFancyHologramListener(this, manager), this);
             this.getServer().getScheduler().runTaskTimer(this, new SoulUpdaterFancyHologram(this, manager), this.hologramUpdateTicks, this.hologramUpdateTicks);
 
             this.getLogger().info("FancyHolograms found! Hologram features enabled.");
@@ -160,6 +156,7 @@ public final class SoulGravesPlus extends JavaPlugin {
             this.getServer().getPluginManager().registerEvents(new SoulSpawnDecentHologramListener(this), this);
             this.getServer().getPluginManager().registerEvents(new SoulPickupDecentHologramListener(this), this);
             this.getServer().getPluginManager().registerEvents(new SoulExplodeDecentHologramListener(this), this);
+            this.getServer().getPluginManager().registerEvents(new SoulDeleteDecentHologramListener(this), this);
             this.getServer().getScheduler().runTaskTimer(this, new SoulUpdaterDecentHologram(this), this.hologramUpdateTicks, this.hologramUpdateTicks);
 
             this.getLogger().info("DecentHolograms found! Hologram features enabled.");
@@ -168,37 +165,47 @@ public final class SoulGravesPlus extends JavaPlugin {
         }
     }
 
-    public String formatTime(int time) {
+    public String formatTime(long time) {
         if (time < 0) time = 0;
-        int days = time / 86400;
-        int hours = (time % 86400) / 3600;
-        int minutes = (time % 3600) / 60;
-        int seconds = time % 60;
+        long days = TimeUnit.MILLISECONDS.toDays(time);
+        long hours = TimeUnit.MILLISECONDS.toHours(time) % 24;
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(time) % 60;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(time) % 60;
+        long milliseconds = TimeUnit.MILLISECONDS.toMillis(time) % 100;
+
         return this.timeFormat
-                .replace("{d}", days + "")
-                .replace("{h}", hours + "")
-                .replace("{s}", seconds + "")
-                .replace("{m}", minutes + "");
+                .replace("{d}", String.format("%02d", days))
+                .replace("{h}", String.format("%02d", hours))
+                .replace("{s}", String.format("%02d", seconds))
+                .replace("{m}", String.format("%02d", minutes))
+                .replace("{x}", String.format("%02d", milliseconds));
     }
 
     public List<String> parseHologramLines(Soul soul) {
+        long timeLeft = soul.getExpireTime() - System.currentTimeMillis();
         // Define placeholders
         String soulOwner = Bukkit.getOfflinePlayer(soul.getOwnerUUID()).getName();
-        String formattedTime = LocalDateTime.now().format(this.dateTimeFormatter);
-        int soulTime = soul.getTimeLeft();
-        String formattedSoulTime = this.formatTime(soulTime);
-        int invAmount = soul.getInventory().size();
-        int expAmount = soul.getXp();
+        String formattedDeathTime = this.dateTimeFormatter.format(new Date(soul.getDeathTime()));
+        String formattedExpireTime = this.dateTimeFormatter.format(new Date(soul.getExpireTime()));
+        String formattedTimeLeft = this.formatTime(timeLeft);
+        String rawDeathTime = String.valueOf(soul.getDeathTime());
+        String rawExpireTime = String.valueOf(soul.getExpireTime());
+        String rawTimeLeft = String.valueOf(timeLeft);
+        String invAmount = String.valueOf(soul.getInventory().size());
+        String expAmount = String.valueOf(soul.getXp());
 
         // Replace placeholders in the config lines
         return this.hologramLines.stream()
                 .map(line -> line
                         .replace("{soulOwner}", Objects.requireNonNullElse(soulOwner, "unknown"))
-                        .replace("{formattedTime}", formattedTime)
-                        .replace("{formattedSoulTime}", formattedSoulTime)
-                        .replace("{soulTime}", soulTime + "")
-                        .replace("{invAmount}", invAmount + "")
-                        .replace("{expAmount}", expAmount + "")
+                        .replace("{soulFormattedDeathTime}", formattedDeathTime)
+                        .replace("{soulFormattedExpireTime}", formattedExpireTime)
+                        .replace("{soulFormattedTimeLeft}", formattedTimeLeft)
+                        .replace("{soulRawDeathTime}", rawDeathTime)
+                        .replace("{soulRawExpireTime}", rawExpireTime)
+                        .replace("{soulRawTimeLeft}", rawTimeLeft)
+                        .replace("{soulInventoryAmount}", invAmount)
+                        .replace("{soulExperienceAmount}", expAmount)
                         .replace("&", "§"))
                 .toList();
     }
