@@ -18,6 +18,8 @@ Not strictly required but used for specific features or add additional features
 ## Contributing
 If you'd like to contribute, simply make an issue with your proposed feature/enhancement or browse existing issues that are approved and make a pull request! PRs are accepted at this time.
 
+Thanks to @NicoNekoDev for their contributions & code cleanup!
+
 ## Support & Issues
 Want to make a suggestion? Having an issue? Open a GitHub Issue [here](https://github.com/JosTheDude/SoulGravesPlus/issues) and let me know! 
 
