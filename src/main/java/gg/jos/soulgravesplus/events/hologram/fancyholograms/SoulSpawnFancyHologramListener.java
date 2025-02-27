@@ -16,48 +16,63 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class SoulSpawnFancyHologramListener implements Listener {
+    private final Plugin plugin;
     private final HologramManager manager;
     private final SoulGravesPlus soulGravesPlus;
 
-    public SoulSpawnFancyHologramListener(SoulGravesPlus soulGravesPlus, HologramManager manager) {
-        this.soulGravesPlus = soulGravesPlus;
+    public SoulSpawnFancyHologramListener(Plugin plugin, HologramManager manager, SoulGravesPlus soulGravesPlus) {
+        this.plugin = plugin;
         this.manager = manager;
+        this.soulGravesPlus = soulGravesPlus;
     }
 
     @EventHandler
     public void onSoulSpawn(SoulSpawnEvent event) {
 
-        if (!this.soulGravesPlus.hologramEnabled)
+        if (!soulGravesPlus.hologramEnabled) {
             return;
+        }
 
         // Get the grave location and adjust it to be above the grave
         Location soulLocation = event.getSoulLocation();
-        Location location = soulLocation.clone().add(
-                this.soulGravesPlus.hologramXOffset,
-                this.soulGravesPlus.hologramYOffset,
-                this.soulGravesPlus.hologramZOffset
-        );
+        Location location = soulLocation.clone().add(soulGravesPlus.hologramXOffset, soulGravesPlus.hologramYOffset, soulGravesPlus.hologramZOffset);
 
         // Fetch the hologram config
-        if (this.soulGravesPlus.hologramLines.isEmpty()) {
-            this.soulGravesPlus.getLogger().warning("Hologram lines are missing in the config!");
+        if (soulGravesPlus.hologramLines.isEmpty()) {
+            plugin.getLogger().warning("Hologram lines are missing in the config!");
             return;
         }
+
+        // Define placeholders
+        String soulOwner = event.getPlayer().getName();
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = now.format(formatter);
+        String soulTime = String.valueOf(event.getSoul().getTimeLeft());
+
+        // Replace placeholders in the config lines
+        List<String> parsedLines = soulGravesPlus.hologramLines.stream()
+                .map(line -> line
+                        .replace("{soulOwner}", soulOwner)
+                        .replace("{formattedTime}", formattedTime)
+                        .replace("{soulTime}", soulTime)
+                        .replace("&", "§"))
+                .toList();
 
         // Create a unique hologram name
         String hologramName = "grave_hologram_" + event.getSoul().getMarkerUUID();
 
         TextHologramData hologramData = new TextHologramData(hologramName, location);
         // Create the hologram
-        hologramData.setText(this.soulGravesPlus.parseHologramLines(event.getSoul()));
+        hologramData.setText(parsedLines);
         hologramData.setPersistent(false);
 
         // Hologram background color
-        if (this.soulGravesPlus.hologramBackground) {
-            int a = Integer.parseInt(this.soulGravesPlus.hologramBackgroundColor[0]);
-            int r = Integer.parseInt(this.soulGravesPlus.hologramBackgroundColor[1]);
-            int g = Integer.parseInt(this.soulGravesPlus.hologramBackgroundColor[2]);
-            int b = Integer.parseInt(this.soulGravesPlus.hologramBackgroundColor[3]);
+        if (soulGravesPlus.hologramBackground) {
+            int a = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[0]);
+            int r = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[1]);
+            int g = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[2]);
+            int b = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[3]);
 
             hologramData.setBackground(Color.fromARGB(a, r, g, b));
         }
