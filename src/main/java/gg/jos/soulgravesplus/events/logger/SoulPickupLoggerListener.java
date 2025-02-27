@@ -10,20 +10,22 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
 public class SoulPickupLoggerListener implements Listener {
+    private final Plugin plugin;
     private final SoulGravesPlus soulGravesPlus;
 
-    public SoulPickupLoggerListener(SoulGravesPlus soulGravesPlus) {
+    public SoulPickupLoggerListener(Plugin plugin, SoulGravesPlus soulGravesPlus) {
+        this.plugin = plugin;
         this.soulGravesPlus = soulGravesPlus;
     }
 
     @EventHandler
     public void onSoulPickup(SoulPickupEvent event) {
 
-        if (!this.soulGravesPlus.loggerEnabled) {
+        if (!soulGravesPlus.loggerEnabled) {
             return;
         }
 
-        if (!this.soulGravesPlus.logSoulPickups) {
+        if (!soulGravesPlus.logSoulPickups) {
             return;
         }
 
@@ -32,7 +34,7 @@ public class SoulPickupLoggerListener implements Listener {
         Player player = event.getPlayer();
         String soulOwner = player.getName();
 
-        this.soulGravesPlus.getLogger().info(this.soulGravesPlus.logSoulPickupsMessage
+        plugin.getLogger().info(soulGravesPlus.logSoulPickupsMessage
                 .replace("{soulOwner}", soulOwner)
                 .replace("{x}", String.valueOf(soulLocation.getBlockX()))
                 .replace("{y}", String.valueOf(soulLocation.getBlockY()))

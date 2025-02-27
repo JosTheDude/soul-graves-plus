@@ -4,16 +4,15 @@ import de.oliver.fancyholograms.api.HologramManager;
 import de.oliver.fancyholograms.api.hologram.Hologram;
 import dev.faultyfunctions.soulgraves.api.event.SoulPickupEvent;
 import eu.decentsoftware.holograms.api.DHAPI;
-import gg.jos.soulgravesplus.SoulGravesPlus;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
 public class SoulPickupDecentHologramListener implements Listener {
-    private final SoulGravesPlus soulGravesPlus;
+    private final Plugin plugin;
 
-    public SoulPickupDecentHologramListener(SoulGravesPlus soulGravesPlus) {
-        this.soulGravesPlus = soulGravesPlus;
+    public SoulPickupDecentHologramListener(Plugin plugin) {
+        this.plugin = plugin;
     }
 
     @EventHandler

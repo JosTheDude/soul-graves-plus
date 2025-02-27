@@ -9,20 +9,22 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
 public class SoulSpawnLoggerListener implements Listener {
+    private final Plugin plugin;
     private final SoulGravesPlus soulGravesPlus;
 
-    public SoulSpawnLoggerListener(SoulGravesPlus soulGravesPlus) {
+    public SoulSpawnLoggerListener(Plugin plugin, SoulGravesPlus soulGravesPlus) {
+        this.plugin = plugin;
         this.soulGravesPlus = soulGravesPlus;
     }
 
     @EventHandler
     public void onSoulSpawn(SoulSpawnEvent event) {
 
-        if (!this.soulGravesPlus.loggerEnabled) {
+        if (!soulGravesPlus.loggerEnabled) {
             return;
         }
 
-        if (!this.soulGravesPlus.logSoulSpawns) {
+        if (!soulGravesPlus.logSoulSpawns) {
             return;
         }
 
@@ -31,7 +33,7 @@ public class SoulSpawnLoggerListener implements Listener {
         Player player = event.getPlayer();
         String soulOwner = player.getName();
 
-        this.soulGravesPlus.getLogger().info(this.soulGravesPlus.logSoulSpawnsMessage
+        plugin.getLogger().info(soulGravesPlus.logSoulSpawnsMessage
                 .replace("{soulOwner}", soulOwner)
                 .replace("{x}", String.valueOf(soulLocation.getBlockX()))
                 .replace("{y}", String.valueOf(soulLocation.getBlockY()))

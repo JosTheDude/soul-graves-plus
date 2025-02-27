@@ -4,16 +4,17 @@ import dev.faultyfunctions.soulgraves.api.event.SoulExplodeEvent;
 import gg.jos.soulgravesplus.SoulGravesPlus;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
 public class SoulExplodeLoggerListener implements Listener {
+    private final Plugin plugin;
     private final SoulGravesPlus soulGravesPlus;
 
-    public SoulExplodeLoggerListener(SoulGravesPlus soulGravesPlus) {
+    public SoulExplodeLoggerListener(Plugin plugin, SoulGravesPlus soulGravesPlus) {
+        this.plugin = plugin;
         this.soulGravesPlus = soulGravesPlus;
     }
 
@@ -30,10 +31,10 @@ public class SoulExplodeLoggerListener implements Listener {
 
         // Get the grave location and adjust it to be above the grave
         Location soulLocation = event.getSoulLocation();
-        OfflinePlayer player = event.getOwner().getPlayer();
-        String soulOwner = player != null ? player.getName() : "unknown";
+        Player player = event.getOwner().getPlayer();
+        String soulOwner = player.getName();
 
-        soulGravesPlus.getLogger().info(soulGravesPlus.logSoulExplosionsMessage
+        plugin.getLogger().info(soulGravesPlus.logSoulExplosionsMessage
                 .replace("{soulOwner}", soulOwner)
                 .replace("{x}", String.valueOf(soulLocation.getBlockX()))
                 .replace("{y}", String.valueOf(soulLocation.getBlockY()))
