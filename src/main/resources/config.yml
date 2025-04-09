@@ -33,6 +33,10 @@ hologram:
     # Enable/Disable this feature entirely
     enabled: true
 
+    # Hologram manager to use (which plugin you use for holograms)
+    # This can be either FancyHolograms or DecentHolograms -> defaults to FancyHolograms
+    hologram-manager: "FancyHolograms"
+
     # Configure the location of the hologram relative to the soul's location
     x-offset: 0.0 # x-offset from the soul's location
     y-offset: 3.5 # y-offset from the soul's location

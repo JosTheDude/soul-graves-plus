@@ -42,7 +42,7 @@ public final class SoulGravesPlus extends JavaPlugin {
     public boolean hologramBackground;
     public String[] hologramBackgroundColor;
     public List<String> hologramLines;
-    public String hologramManager; // Unused but exists for future needs
+    public String hologramManager;
     public long hologramUpdateTicks;
 
     @Override
@@ -93,6 +93,7 @@ public final class SoulGravesPlus extends JavaPlugin {
 
         // Hologram Features
         this.hologramEnabled = this.getConfig().getBoolean("hologram.enabled", true);
+        this.hologramManager = this.getConfig().getString("hologram.hologram-manager", "FancyHolograms");
 
         this.hologramXOffset = this.getConfig().getDouble("hologram.x-offset", 0.0);
         this.hologramYOffset = this.getConfig().getDouble("hologram.y-offset", 0.3);
@@ -136,7 +137,12 @@ public final class SoulGravesPlus extends JavaPlugin {
     }
 
     private void hologramFeatures() {
-        if (this.getServer().getPluginManager().getPlugin("FancyHolograms") != null) {
+        if (this.hologramManager.equals("FancyHolograms")) {
+
+            if (this.getServer().getPluginManager().getPlugin("FancyHolograms") == null) {
+                this.getLogger().warning("FancyHolograms not found! Hologram features disabled. Did you configure the right hologram-manager in the config?");
+                return;
+            }
 
             this.hologramManager = "FancyHolograms";
 
@@ -149,7 +155,12 @@ public final class SoulGravesPlus extends JavaPlugin {
             this.getServer().getScheduler().runTaskTimer(this, new SoulUpdaterFancyHologram(this, manager), this.hologramUpdateTicks, this.hologramUpdateTicks);
 
             this.getLogger().info("FancyHolograms found! Hologram features enabled.");
-        } else if (this.getServer().getPluginManager().getPlugin("DecentHolograms") != null) {
+        } else if (this.hologramManager.equals("DecentHolograms")) {
+
+            if (this.getServer().getPluginManager().getPlugin("DecentHolograms") == null) {
+                this.getLogger().warning("DecentHolograms not found! Hologram features disabled. Did you configure the right hologram-manager in the config?");
+                return;
+            }
 
             this.hologramManager = "DecentHolograms";
 
