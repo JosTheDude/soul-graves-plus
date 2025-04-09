@@ -172,7 +172,7 @@ public final class SoulGravesPlus extends JavaPlugin {
 
             this.getLogger().info("DecentHolograms found! Hologram features enabled.");
         } else {
-            this.getLogger().warning("FancyHolograms or DecentHolograms not found! Hologram features disabled.");
+            this.getLogger().warning("A valid hologram-manager was not configured. Hologram features disabled. Did you configure the right hologram-manager in the config?");
         }
     }
 
