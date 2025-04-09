@@ -194,6 +194,7 @@ public final class SoulGravesPlus extends JavaPlugin {
 
     public List<String> parseHologramLines(Soul soul) {
         long timeLeft = soul.getExpireTime() - System.currentTimeMillis();
+
         // Define placeholders
         String soulOwner = Bukkit.getOfflinePlayer(soul.getOwnerUUID()).getName();
         String formattedDeathTime = this.dateTimeFormatter.format(new Date(soul.getDeathTime()));
