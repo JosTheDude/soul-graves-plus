@@ -17,13 +17,13 @@ public class ReloadCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
-        if (args.length == 0 || !args[0].equalsIgnoreCase("reload")) {
-            sender.sendMessage("§cUsage: /soulgravesplus reload");
+        if (sender instanceof Player && !sender.hasPermission("soulgravesplus.admin")) {
+            sender.sendMessage("§cYou do not have permission to use this command. §7(soulgravesplus.admin)");
             return true;
         }
 
-        if (sender instanceof Player && !sender.hasPermission("soulgravesplus.admin")) {
-            sender.sendMessage("§cYou do not have permission to use this command. §7(soulgravesplus.admin)");
+        if (args.length == 0 || !args[0].equalsIgnoreCase("reload")) {
+            sender.sendMessage("§cUsage: /soulgravesplus reload");
             return true;
         }
 
