@@ -53,6 +53,11 @@ public final class SoulGravesPlus extends JavaPlugin {
             this.getServer().getPluginManager().disablePlugin(this);
         }
 
+        if (!getServer().getPluginManager().isPluginEnabled("SoulGraves")) {
+            this.getLogger().warning("SoulGraves was found but was not enabled, disabling SoulGravesPlus");
+            this.getServer().getPluginManager().disablePlugin(this);
+        }
+
         // Logger Messages
 
         this.getLogger().info("\u001B[35mSoulGravesPlus enabled! Made by JosTheDude with \u001B[31m<3\u001B[35m and cookies\u001B[0m\n");
@@ -144,6 +149,11 @@ public final class SoulGravesPlus extends JavaPlugin {
                 return;
             }
 
+            if (!this.getServer().getPluginManager().isPluginEnabled("FancyHolograms")) {
+                this.getLogger().warning("FancyHolograms was found but was not enabled! Hologram features disabled. Did you configure the right hologram-manager in the config?");
+                return;
+            }
+
             this.hologramManager = "FancyHolograms";
 
             HologramManager manager = FancyHologramsPlugin.get().getHologramManager();
@@ -159,6 +169,11 @@ public final class SoulGravesPlus extends JavaPlugin {
 
             if (this.getServer().getPluginManager().getPlugin("DecentHolograms") == null) {
                 this.getLogger().warning("DecentHolograms not found! Hologram features disabled. Did you configure the right hologram-manager in the config?");
+                return;
+            }
+
+            if (!this.getServer().getPluginManager().isPluginEnabled("DecentHolograms")) {
+                this.getLogger().warning("DecentHolograms was found but was not enabled! Hologram features disabled. Did you configure the right hologram-manager in the config?");
                 return;
             }
 

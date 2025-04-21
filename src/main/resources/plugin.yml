@@ -2,7 +2,8 @@ name: SoulGravesPlus
 version: '${version}'
 main: gg.jos.soulgravesplus.SoulGravesPlus
 api-version: '1.21'
-softdepend: [SoulGraves, FancyHolograms, DecentHolograms]
+depend: [ SoulGraves ]
+softdepend: [FancyHolograms, DecentHolograms]
 authors: [JosTheDude]
 website: https://jos.gg/
 
