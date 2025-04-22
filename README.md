@@ -15,6 +15,9 @@ Not strictly required but used for specific features or add additional features
 - [FancyHolograms](https://modrinth.com/plugin/fancyholograms) (recommended) or [DecentHolograms](https://www.spigotmc.org/resources/decentholograms-1-8-1-21-4-papi-support-no-dependencies.96927/) | Required for Holograms
 > _Holograms do not persist across restarts, graves still will_
 
+## Development Builds
+Development builds follow the latest git commit with the latest features but may contain bugs. Download latest development build [here.](https://nightly.link/JosTheDude/SoulGravesPlus/workflows/gradle/main/artifact.zip)
+
 ## Contributing
 If you'd like to contribute, simply make an issue with your proposed feature/enhancement or browse existing issues that are approved and make a pull request! PRs are accepted at this time.
 
