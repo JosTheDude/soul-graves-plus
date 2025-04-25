@@ -9,14 +9,20 @@ import gg.jos.soulgravesplus.events.hologram.fancyholograms.*;
 import gg.jos.soulgravesplus.events.logger.SoulExplodeLoggerListener;
 import gg.jos.soulgravesplus.events.logger.SoulPickupLoggerListener;
 import gg.jos.soulgravesplus.events.logger.SoulSpawnLoggerListener;
+import gg.jos.soulgravesplus.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public final class SoulGravesPlus extends JavaPlugin {
 
@@ -45,6 +51,8 @@ public final class SoulGravesPlus extends JavaPlugin {
     public String hologramManager;
     public long hologramUpdateTicks;
 
+    private final int resourceId = 122635;
+
     @Override
     public void onEnable() {
 
@@ -62,6 +70,15 @@ public final class SoulGravesPlus extends JavaPlugin {
 
         this.getLogger().info("\u001B[35mSoulGravesPlus enabled! Made by JosTheDude with \u001B[31m<3\u001B[35m and cookies\u001B[0m\n");
         this.getLogger().info("\u001B[37mPlease report any issues to \u001B[37m\u001B[4mhttps://github.com/JosTheDude/SoulGravesPlus\u001B[0m");
+        this.getLogger().info("\u001B[37mIf you want to support me, consider donating at \u001B[37m\u001B[4mhttps://ko-fi.com/jossydev\u001B[0m");
+
+        new UpdateChecker(this, resourceId).getVersion(version -> {
+            if (this.getPluginMeta().getVersion().equals(version)) {
+                getLogger().info("You are using the latest version of SoulGravesPlus.");
+            } else {
+                getLogger().info("A new version of SoulGravesPlus is available! Download it at: https://www.spigotmc.org/resources/soulgravesplus.122635/");
+            }
+        });
 
         // Config & Feature Subsets
         saveDefaultConfig();
