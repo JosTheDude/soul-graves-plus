@@ -6,6 +6,7 @@ Spigot Page: [https://www.spigotmc.org/resources/soul-graves-plus.122635/](https
 ## Features
 - Customizable Hologram above Active Soul
 - Configurable Logger for Soul Spawns, Pickups, and Explosions in Console
+- Death Coordinates sent to player when they die (for their Soul)
 
 ## Dependencies
 - [SoulGraves](https://github.com/FaultyFunctions/SoulGraves) | Required
