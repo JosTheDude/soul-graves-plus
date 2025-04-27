@@ -32,12 +32,14 @@ public class SoulExplodeLoggerListener implements Listener {
         Location soulLocation = event.getSoulLocation();
         OfflinePlayer player = event.getOwner().getPlayer();
         String soulOwner = player != null ? player.getName() : "unknown";
+        String worldName = soulGravesPlus.getWorldAlias(soulLocation.getWorld().getName());
 
         soulGravesPlus.getLogger().info(soulGravesPlus.logSoulExplosionsMessage
                 .replace("{soulOwner}", soulOwner)
                 .replace("{x}", String.valueOf(soulLocation.getBlockX()))
                 .replace("{y}", String.valueOf(soulLocation.getBlockY()))
                 .replace("{z}", String.valueOf(soulLocation.getBlockZ()))
+                .replace("{world}", worldName)
         );
 
     }

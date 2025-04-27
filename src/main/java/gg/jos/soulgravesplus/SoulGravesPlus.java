@@ -12,6 +12,7 @@ import gg.jos.soulgravesplus.events.logger.SoulPickupLoggerListener;
 import gg.jos.soulgravesplus.events.logger.SoulSpawnLoggerListener;
 import gg.jos.soulgravesplus.utils.UpdateChecker;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -30,6 +32,7 @@ public final class SoulGravesPlus extends JavaPlugin {
     // Formatting Config
     public SimpleDateFormat dateTimeFormatter;
     public String timeFormat;
+    private ConcurrentHashMap<String, String> worldNameAliases;
 
     // Logger Config
     public boolean loggerEnabled;
@@ -74,21 +77,22 @@ public final class SoulGravesPlus extends JavaPlugin {
 
         // Logger Messages
 
-        this.getLogger().info("\u001B[35mSoulGravesPlus enabled! Made by JosTheDude with \u001B[31m<3\u001B[35m and cookies\u001B[0m\n");
-        this.getLogger().info("\u001B[37mPlease report any issues to \u001B[37m\u001B[4mhttps://github.com/JosTheDude/SoulGravesPlus\u001B[0m");
-        this.getLogger().info("\u001B[37mIf you want to support me, consider donating at \u001B[37m\u001B[4mhttps://ko-fi.com/jossydev\u001B[0m");
+        this.getLogger().info("\u001B[32mEnabled!\u001B[0m \u001B[35mMade by\u001B[0m \u001B[35mJosTheDude\u001B[0m \u001B[35mwith\u001B[0m \u001B[31m<3\u001B[0m \u001B[35mand cookies!\u001B[0m");
+        this.getLogger().info("\u001B[33mPlease report any issues here:\u001B[0m \u001B[35m\u001B[4mhttps://github.com/JosTheDude/SoulGravesPlus\u001B[0m");
+        this.getLogger().info("\u001B[33mLike my work? Support me here:\u001B[0m \u001B[35m\u001B[4mhttps://ko-fi.com/jossydev\u001B[0m");
 
         new UpdateChecker(this, resourceId).getVersion(version -> {
             if (this.getPluginMeta().getVersion().equals(version)) {
-                getLogger().info("You are using the latest version of SoulGravesPlus.");
+                getLogger().info("\u001B[32mYou are using the latest version!\u001B[0m");
             } else {
-                getLogger().info("A new version of SoulGravesPlus is available! Download it at: https://www.spigotmc.org/resources/soulgravesplus.122635/");
+                getLogger().info("\u001B[31mA new version of SoulGravesPlus is available! Download it here: \u001B[0m \u001B[35mhttps://www.spigotmc.org/resources/soulgravesplus.122635/\u001B[0m");
             }
         });
 
         // Config & Feature Subsets
         saveDefaultConfig();
         updateConfig();
+        featureSubsets();
 
         // Commands
         this.getCommand("soulgravesplus").setExecutor(new ReloadCommand(this));
@@ -99,6 +103,21 @@ public final class SoulGravesPlus extends JavaPlugin {
         // Option Features
         this.dateTimeFormatter = new SimpleDateFormat(this.getConfig().getString("options.date-format", "yyyy-MM-dd HH:mm:ss"));
         this.timeFormat = this.getConfig().getString("options.time-format", "{m}m {s}s");
+        this.worldNameAliases = new ConcurrentHashMap<>();
+
+        ConfigurationSection aliasesSection = this.getConfig().getConfigurationSection("options.world-name-aliases");
+        if (aliasesSection != null) {
+            for (String key : aliasesSection.getKeys(false)) {
+                String alias = aliasesSection.getString(key);
+                if (alias != null) {
+                    this.worldNameAliases.put(key, alias);
+                } else {
+                    this.getLogger().warning("World name alias '" + key + "' is missing a value in config.yml.");
+                }
+            }
+        } else {
+            this.getLogger().warning("No world name aliases section found in config.yml.");
+        }
 
         // Logger Features
         this.loggerEnabled = this.getConfig().getBoolean("logger.enabled", true);
@@ -135,8 +154,6 @@ public final class SoulGravesPlus extends JavaPlugin {
 
         this.deathCoordinatesEnabled = this.getConfig().getBoolean("death-coordinates.enabled", true);
         this.deathCoordinatesMessage = this.getConfig().getString("death-coordinates.message", "&c☠ You died at {x} {y} {z}");
-
-        featureSubsets();
 
     }
 
@@ -272,6 +289,10 @@ public final class SoulGravesPlus extends JavaPlugin {
                         .replace("{soulExperienceAmount}", expAmount)
                         .replace("&", "§"))
                 .toList();
+    }
+
+    public String getWorldAlias(String worldName) {
+        return this.worldNameAliases.getOrDefault(worldName, worldName);
     }
 
 }

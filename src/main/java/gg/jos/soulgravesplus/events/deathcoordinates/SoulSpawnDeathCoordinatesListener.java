@@ -26,13 +26,18 @@ public class SoulSpawnDeathCoordinatesListener implements Listener {
         Player player = event.getPlayer();
         String soulOwner = player.getName();
 
+        double x = Math.round(soulLocation.getX() * 100.0) / 100.0;
+        double y = Math.round(soulLocation.getY() * 100.0) / 100.0;
+        double z = Math.round(soulLocation.getZ() * 100.0) / 100.0;
+        String worldName = soulGravesPlus.getWorldAlias(soulLocation.getWorld().getName());
+
         player.sendMessage(this.soulGravesPlus.deathCoordinatesMessage
                 .replace("{soulOwner}", soulOwner)
-                .replace("{x}", String.valueOf(soulLocation.getBlockX()))
-                .replace("{y}", String.valueOf(soulLocation.getBlockY()))
-                .replace("{z}", String.valueOf(soulLocation.getBlockZ()))
+                .replace("{x}", String.valueOf(x))
+                .replace("{y}", String.valueOf(y))
+                .replace("{z}", String.valueOf(z))
+                .replace("{world}", worldName)
                 .replace("&", "§")
         );
-
     }
 }

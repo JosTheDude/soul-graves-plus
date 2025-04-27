@@ -30,12 +30,14 @@ public class SoulSpawnLoggerListener implements Listener {
         Location soulLocation = event.getSoulLocation();
         Player player = event.getPlayer();
         String soulOwner = player.getName();
+        String worldName = soulGravesPlus.getWorldAlias(soulLocation.getWorld().getName());
 
         this.soulGravesPlus.getLogger().info(this.soulGravesPlus.logSoulSpawnsMessage
                 .replace("{soulOwner}", soulOwner)
                 .replace("{x}", String.valueOf(soulLocation.getBlockX()))
                 .replace("{y}", String.valueOf(soulLocation.getBlockY()))
                 .replace("{z}", String.valueOf(soulLocation.getBlockZ()))
+                .replace("{world}", worldName)
         );
 
     }
