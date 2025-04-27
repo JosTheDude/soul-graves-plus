@@ -4,6 +4,7 @@ import de.oliver.fancyholograms.api.FancyHologramsPlugin;
 import de.oliver.fancyholograms.api.HologramManager;
 import dev.faultyfunctions.soulgraves.utils.Soul;
 import gg.jos.soulgravesplus.commands.ReloadCommand;
+import gg.jos.soulgravesplus.events.deathcoordinates.SoulSpawnDeathCoordinatesListener;
 import gg.jos.soulgravesplus.events.hologram.decentholograms.*;
 import gg.jos.soulgravesplus.events.hologram.fancyholograms.*;
 import gg.jos.soulgravesplus.events.logger.SoulExplodeLoggerListener;
@@ -50,6 +51,11 @@ public final class SoulGravesPlus extends JavaPlugin {
     public List<String> hologramLines;
     public String hologramManager;
     public long hologramUpdateTicks;
+
+    // Death Coordinates config
+    public boolean deathCoordinatesEnabled;
+
+    public String deathCoordinatesMessage;
 
     private final int resourceId = 122635;
 
@@ -127,6 +133,9 @@ public final class SoulGravesPlus extends JavaPlugin {
         this.hologramLines = this.getConfig().getStringList("hologram.lines");
         this.hologramUpdateTicks = this.getConfig().getLong("hologram.update-ticks", 10L);
 
+        this.deathCoordinatesEnabled = this.getConfig().getBoolean("death-coordinates.enabled", true);
+        this.deathCoordinatesMessage = this.getConfig().getString("death-coordinates.message", "&c☠ You died at {x} {y} {z}");
+
         featureSubsets();
 
     }
@@ -145,6 +154,12 @@ public final class SoulGravesPlus extends JavaPlugin {
             hologramFeatures();
         } else {
             this.getLogger().warning("Hologram features are disabled in the config.yml.");
+        }
+
+        if (this.deathCoordinatesEnabled) {
+            deathCoordinatesFeatures();
+        } else {
+            this.getLogger().warning("Death coordinates features are disabled in the config.yml.");
         }
 
     }
@@ -206,6 +221,11 @@ public final class SoulGravesPlus extends JavaPlugin {
         } else {
             this.getLogger().warning("A valid hologram-manager was not configured. Hologram features disabled. Did you configure the right hologram-manager in the config?");
         }
+    }
+
+    private void deathCoordinatesFeatures() {
+        this.getServer().getPluginManager().registerEvents(new SoulSpawnDeathCoordinatesListener(this), this);
+        this.getLogger().info("Death coordinates features enabled.");
     }
 
     public String formatTime(long time) {

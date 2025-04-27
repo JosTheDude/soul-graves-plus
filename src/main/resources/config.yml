@@ -70,6 +70,24 @@ hologram:
     # How fast should we update the holograms? (in ticks)
     update-ticks: 10
 
+death-coordinates:
+
+    # Death Coordinate settings
+    # This feature sends soul coordinates to the players' chat when they die.
+
+    # Enable/Disable this feature entirely
+    enabled: true
+
+    # Configure the text of the death coordinates message, using MiniMessage and/or Legacy Formatting
+    # Placeholders:
+    # {soulOwner} for soul owner (player)
+    # {x} for x coordinate
+    # {y} for y coordinate
+    # {z} for z coordinate
+
+    message: "&c☠ Your soul has spawned at &f{x} {y} {z}"
+
+
 options:
 
     # Date format
