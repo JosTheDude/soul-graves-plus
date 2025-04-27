@@ -31,6 +31,7 @@ public class SoulSpawnDeathCoordinatesListener implements Listener {
                 .replace("{x}", String.valueOf(soulLocation.getBlockX()))
                 .replace("{y}", String.valueOf(soulLocation.getBlockY()))
                 .replace("{z}", String.valueOf(soulLocation.getBlockZ()))
+                .replace("&", "§")
         );
 
     }
