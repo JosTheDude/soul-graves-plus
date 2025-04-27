@@ -19,10 +19,10 @@ Not strictly required but used for specific features or add additional features
 ## Development Builds
 Development builds follow the latest git commit with the latest features but may contain bugs. Download latest development build [here.](https://nightly.link/JosTheDude/SoulGravesPlus/workflows/gradle/main/artifact.zip)
 
-## Contributing
+## Feature Requests & Contributing
 If you'd like to contribute, simply make an issue with your proposed feature/enhancement or browse existing issues that are approved and make a pull request! PRs are accepted at this time.
 
-Thanks to @NicoNekoDev for their contributions & code cleanup!
+Thanks to [@NicoNekoDev](https://github.com/NicoNekoDev) for their contributions & code cleanup!
 
 ## Support & Issues
 Want to make a suggestion? Having an issue? Open a GitHub Issue [here](https://github.com/JosTheDude/SoulGravesPlus/issues) and let me know! 
