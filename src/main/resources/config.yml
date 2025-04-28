@@ -108,6 +108,6 @@ options:
         # Example: "world_nether": "Nether"
         world: "Overworld"
         world_nether: "Nether"
-        world_the_end: "The End"
+        world_the_end: "End"
         resource_world: "Resource World"
         spawn: "Spawn"
