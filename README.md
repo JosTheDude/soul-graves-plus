@@ -1,5 +1,5 @@
 # SoulGravesPlus
-A free extension for [Soul Graves](https://github.com/FaultyFunctions/SoulGraves) with a variety of useful features. Built for 1.21+
+A free open source addon for [Soul Graves](https://github.com/FaultyFunctions/SoulGraves) with a variety of useful features. Built for 1.21+
 
 Spigot Page: [https://www.spigotmc.org/resources/soul-graves-plus.122635/](https://www.spigotmc.org/resources/soul-graves-plus.122635/)
 
@@ -25,6 +25,6 @@ If you'd like to contribute, simply make an issue with your proposed feature/enh
 Thanks to [@NicoNekoDev](https://github.com/NicoNekoDev) for their contributions & code cleanup!
 
 ## Support & Issues
-Want to make a suggestion? Having an issue? Open a GitHub Issue [here](https://github.com/JosTheDude/SoulGravesPlus/issues) and let me know! 
+Want to make a suggestion? Having an issue? Open a GitHub Issue [here](https://github.com/JosTheDude/soul-graves-plus/issues) and let me know! 
 
 Found an exploit? Reach out ASAP to `@josbot` over Discord and let me know.
