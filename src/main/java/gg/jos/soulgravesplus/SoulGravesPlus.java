@@ -262,7 +262,17 @@ public final class SoulGravesPlus extends JavaPlugin {
     }
 
     public List<String> parseHologramLines(Soul soul) {
-        long timeLeft = soul.getExpireTime() - System.currentTimeMillis();
+        long timeLeft;
+
+        if (getServer().getPluginManager().getPlugin("SoulGraves").getConfig().getBoolean("offline-owner-timer-freeze", false)) {
+            if (!Bukkit.getOfflinePlayer(soul.getOwnerUUID()).isOnline() && soul.getFreezeTime() > 0) {
+                timeLeft = soul.getTimeLeft() * 1000L;
+            } else {
+                timeLeft = soul.getExpireTime() - System.currentTimeMillis();
+            }
+        } else {
+            timeLeft = soul.getExpireTime() - System.currentTimeMillis();
+        }
 
         // Define placeholders
         String soulOwner = Bukkit.getOfflinePlayer(soul.getOwnerUUID()).getName();
