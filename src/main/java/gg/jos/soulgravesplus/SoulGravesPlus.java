@@ -51,6 +51,7 @@ public final class SoulGravesPlus extends JavaPlugin {
     public double hologramZOffset;
     public boolean hologramBackground;
     public String[] hologramBackgroundColor;
+    public boolean hologramTextShadow;
     public List<String> hologramLines;
     public String hologramManager;
     public long hologramUpdateTicks;
@@ -148,6 +149,8 @@ public final class SoulGravesPlus extends JavaPlugin {
 
         this.hologramBackground = this.getConfig().getBoolean("hologram.custom-background", false);
         this.hologramBackgroundColor = this.getConfig().getString("hologram.background-color", "1,100,255,79").split(",");
+
+        this.hologramTextShadow = this.getConfig().getBoolean("hologram.text-shadow", false);
 
         this.hologramLines = this.getConfig().getStringList("hologram.lines");
         this.hologramUpdateTicks = this.getConfig().getLong("hologram.update-ticks", 10L);
