@@ -269,7 +269,7 @@ public final class SoulGravesPlus extends JavaPlugin {
         long timeLeft;
         OfflinePlayer player = Bukkit.getOfflinePlayer(soul.getOwnerUUID());
 
-        if (getServer().getPluginManager().getPlugin("SoulGraves").getConfig().getBoolean("offline-owner-timer-freeze", false)) {
+        if (this.getServer().getPluginManager().getPlugin("SoulGraves").getConfig().getBoolean("offline-owner-timer-freeze", false)) {
             if (!player.isOnline() && soul.getFreezeTime() > 0) {
                 timeLeft = soul.getTimeLeft() * 1000L;
             } else {
