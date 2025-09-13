@@ -22,7 +22,7 @@ Development builds follow the latest git commit with the latest features but may
 ## Feature Requests & Contributing
 If you'd like to contribute, simply make an issue with your proposed feature/enhancement or browse existing issues that are approved and make a pull request! PRs are accepted at this time.
 
-Thanks to [@NicoNekoDev](https://github.com/NicoNekoDev) for their contributions & code cleanup!
+Thanks to [@NicoNekoDev](https://github.com/NicoNekoDev) and [@muhdfdeen](https://github.com/muhdfdeen) for their contributions & code cleanup!
 
 ## Support & Issues
 Want to make a suggestion? Having an issue? Open a GitHub Issue [here](https://github.com/JosTheDude/soul-graves-plus/issues) and let me know! 
