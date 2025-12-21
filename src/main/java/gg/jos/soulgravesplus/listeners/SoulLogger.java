@@ -1,4 +1,4 @@
-package gg.jos.soulgravesplus.events.logger;
+package gg.jos.soulgravesplus.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

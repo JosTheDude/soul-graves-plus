@@ -1,4 +1,4 @@
-package gg.jos.soulgravesplus.events.holograms.fancyholograms;
+package gg.jos.soulgravesplus.listeners.holograms;
 
 import java.util.UUID;
 

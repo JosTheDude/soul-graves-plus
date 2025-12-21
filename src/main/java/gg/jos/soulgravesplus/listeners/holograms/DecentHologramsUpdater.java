@@ -1,4 +1,4 @@
-package gg.jos.soulgravesplus.events.holograms.decentholograms;
+package gg.jos.soulgravesplus.listeners.holograms;
 
 import dev.faultyfunctions.soulgraves.SoulGraves;
 import dev.faultyfunctions.soulgraves.utils.Soul;

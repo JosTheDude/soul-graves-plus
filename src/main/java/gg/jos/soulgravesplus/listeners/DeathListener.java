@@ -1,4 +1,4 @@
-package gg.jos.soulgravesplus.events.deathcoordinates;
+package gg.jos.soulgravesplus.listeners;
 
 import dev.faultyfunctions.soulgraves.api.event.SoulSpawnEvent;
 import gg.jos.soulgravesplus.SoulGravesPlus;
@@ -9,10 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class DeathCoordinatesListener implements Listener {
+public class DeathListener implements Listener {
     private final SoulGravesPlus soulGravesPlus;
 
-    public DeathCoordinatesListener(SoulGravesPlus soulGravesPlus) {
+    public DeathListener(SoulGravesPlus soulGravesPlus) {
         this.soulGravesPlus = soulGravesPlus;
     }
 

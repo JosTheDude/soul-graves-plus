@@ -4,10 +4,12 @@ import de.oliver.fancyholograms.api.FancyHologramsPlugin;
 import de.oliver.fancyholograms.api.HologramManager;
 import dev.faultyfunctions.soulgraves.utils.Soul;
 import gg.jos.soulgravesplus.commands.ReloadCommand;
-import gg.jos.soulgravesplus.events.deathcoordinates.DeathCoordinatesListener;
-import gg.jos.soulgravesplus.events.holograms.decentholograms.*;
-import gg.jos.soulgravesplus.events.holograms.fancyholograms.*;
-import gg.jos.soulgravesplus.events.logger.SoulLogger;
+import gg.jos.soulgravesplus.listeners.DeathListener;
+import gg.jos.soulgravesplus.listeners.SoulLogger;
+import gg.jos.soulgravesplus.listeners.holograms.DecentHologramsListener;
+import gg.jos.soulgravesplus.listeners.holograms.DecentHologramsUpdater;
+import gg.jos.soulgravesplus.listeners.holograms.FancyHologramsListener;
+import gg.jos.soulgravesplus.listeners.holograms.FancyHologramsUpdater;
 import gg.jos.soulgravesplus.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -233,7 +235,7 @@ public final class SoulGravesPlus extends JavaPlugin {
     }
 
     private void deathCoordinatesFeatures() {
-        this.getServer().getPluginManager().registerEvents(new DeathCoordinatesListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new DeathListener(this), this);
         this.getLogger().info("Death coordinates features enabled.");
     }
 
