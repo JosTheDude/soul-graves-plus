@@ -18,11 +18,10 @@ logger:
     # {y} for y coordinate
     # {z} for z coordinate
     # {world} for world name, configure world name aliases before for readability
-    # Formatted by ANSI color codes, NOT legacy or MiniMessage
 
-    log-soul-spawns-message: "\u001B[37m[SoulTracker] \u001B[92mSoul spawned for \u001B[93m{soulOwner}\u001B[92m at \u001B[93m{x} {y} {z} in {world}\u001B[0m"
-    log-soul-pickups-message: "\u001B[37m[SoulTracker] \u001B[93m{soulOwner}\u001B[92m picked up a soul at \u001B[93m{x} {y} {z} in {world}\u001B[0m"
-    log-soul-explosions-message: "\u001B[37m[SoulTracker] \u001B[91mSoul for \u001B[93m{soulOwner}\u001B[91m exploded at \u001B[93m{x} {y} {z} in {world}\u001B[0m"
+    log-soul-spawns-message: "&7[SoulTracker] &aSoul spawned for &e{soulOwner}&a at &e{x} {y} {z} &ain &e{world}"
+    log-soul-pickups-message: "&7[SoulTracker] &e{soulOwner}&a picked up a soul at &e{x} {y} {z} &ain &e{world}"
+    log-soul-explosions-message: "&7[SoulTracker] &cSoul for &e{soulOwner}&c exploded at &e{x} {y} {z} &cin &e{world}"
 
 
 hologram:

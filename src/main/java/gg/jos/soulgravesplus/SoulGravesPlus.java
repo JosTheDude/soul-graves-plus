@@ -4,12 +4,10 @@ import de.oliver.fancyholograms.api.FancyHologramsPlugin;
 import de.oliver.fancyholograms.api.HologramManager;
 import dev.faultyfunctions.soulgraves.utils.Soul;
 import gg.jos.soulgravesplus.commands.ReloadCommand;
-import gg.jos.soulgravesplus.events.deathcoordinates.SoulSpawnDeathCoordinatesListener;
-import gg.jos.soulgravesplus.events.hologram.decentholograms.*;
-import gg.jos.soulgravesplus.events.hologram.fancyholograms.*;
-import gg.jos.soulgravesplus.events.logger.SoulExplodeLoggerListener;
-import gg.jos.soulgravesplus.events.logger.SoulPickupLoggerListener;
-import gg.jos.soulgravesplus.events.logger.SoulSpawnLoggerListener;
+import gg.jos.soulgravesplus.events.deathcoordinates.DeathCoordinatesListener;
+import gg.jos.soulgravesplus.events.holograms.decentholograms.*;
+import gg.jos.soulgravesplus.events.holograms.fancyholograms.*;
+import gg.jos.soulgravesplus.events.logger.SoulLogger;
 import gg.jos.soulgravesplus.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -186,11 +184,7 @@ public final class SoulGravesPlus extends JavaPlugin {
     }
 
     private void loggerFeatures() {
-
-        this.getServer().getPluginManager().registerEvents(new SoulSpawnLoggerListener(this), this);
-        this.getServer().getPluginManager().registerEvents(new SoulPickupLoggerListener(this), this);
-        this.getServer().getPluginManager().registerEvents(new SoulExplodeLoggerListener(this), this);
-
+        this.getServer().getPluginManager().registerEvents(new SoulLogger(this), this);
         this.getLogger().info("Logger features enabled.");
     }
 
@@ -211,11 +205,8 @@ public final class SoulGravesPlus extends JavaPlugin {
 
             HologramManager manager = FancyHologramsPlugin.get().getHologramManager();
 
-            this.getServer().getPluginManager().registerEvents(new SoulSpawnFancyHologramListener(this, manager), this);
-            this.getServer().getPluginManager().registerEvents(new SoulPickupFancyHologramListener(this, manager), this);
-            this.getServer().getPluginManager().registerEvents(new SoulExplodeFancyHologramListener(this, manager), this);
-            this.getServer().getPluginManager().registerEvents(new SoulDeleteFancyHologramListener(this, manager), this);
-            this.getServer().getScheduler().runTaskTimer(this, new SoulUpdaterFancyHologram(this, manager), this.hologramUpdateTicks, this.hologramUpdateTicks);
+            this.getServer().getPluginManager().registerEvents(new FancyHologramsListener(this, manager), this);
+            this.getServer().getScheduler().runTaskTimer(this, new FancyHologramsUpdater(this, manager), this.hologramUpdateTicks, this.hologramUpdateTicks);
 
             this.getLogger().info("FancyHolograms found! Hologram features enabled.");
         } else if (this.hologramManager.equals("DecentHolograms")) {
@@ -232,11 +223,8 @@ public final class SoulGravesPlus extends JavaPlugin {
 
             this.hologramManager = "DecentHolograms";
 
-            this.getServer().getPluginManager().registerEvents(new SoulSpawnDecentHologramListener(this), this);
-            this.getServer().getPluginManager().registerEvents(new SoulPickupDecentHologramListener(this), this);
-            this.getServer().getPluginManager().registerEvents(new SoulExplodeDecentHologramListener(this), this);
-            this.getServer().getPluginManager().registerEvents(new SoulDeleteDecentHologramListener(this), this);
-            this.getServer().getScheduler().runTaskTimer(this, new SoulUpdaterDecentHologram(this), this.hologramUpdateTicks, this.hologramUpdateTicks);
+            this.getServer().getPluginManager().registerEvents(new DecentHologramsListener(this), this);
+            this.getServer().getScheduler().runTaskTimer(this, new DecentHologramsUpdater(this), this.hologramUpdateTicks, this.hologramUpdateTicks);
 
             this.getLogger().info("DecentHolograms found! Hologram features enabled.");
         } else {
@@ -245,7 +233,7 @@ public final class SoulGravesPlus extends JavaPlugin {
     }
 
     private void deathCoordinatesFeatures() {
-        this.getServer().getPluginManager().registerEvents(new SoulSpawnDeathCoordinatesListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new DeathCoordinatesListener(this), this);
         this.getLogger().info("Death coordinates features enabled.");
     }
 
