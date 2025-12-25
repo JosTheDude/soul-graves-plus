@@ -5,8 +5,6 @@ plugins {
 group = 'gg.jos'
 version = '1.6.1'
 
-
-
 repositories {
     mavenCentral()
     maven {
@@ -26,10 +24,10 @@ repositories {
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT"
-    implementation 'com.github.FaultyFunctions:SoulGraves:v1.5.0'
+    implementation 'com.github.FaultyFunctions:SoulGraves:v1.5.1'
 
-    compileOnly "de.oliver:FancyHolograms:2.4.2"
-    compileOnly 'com.github.decentsoftware-eu:decentholograms:2.8.14'
+    compileOnly "de.oliver:FancyHolograms:2.9.0"
+    compileOnly 'com.github.decentsoftware-eu:decentholograms:2.9.9'
 }
 
 def targetJavaVersion = 21
