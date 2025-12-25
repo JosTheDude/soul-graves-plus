@@ -45,12 +45,18 @@ public class FancyHologramsListener implements Listener {
         hologramData.setPersistent(false);
 
         if (soulGravesPlus.hologramBackground) {
-            int a = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[0]);
-            int r = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[1]);
-            int g = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[2]);
-            int b = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[3]);
+            try {
+                int a = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[0]);
+                int r = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[1]);
+                int g = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[2]);
+                int b = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[3]);
 
-            hologramData.setBackground(Color.fromARGB(a, r, g, b));
+                hologramData.setBackground(Color.fromARGB(a, r, g, b));
+            } catch (NumberFormatException e) {
+                soulGravesPlus.getLogger().warning(
+                        "Invalid hologram background color configured; expected integer ARGB values but got: "
+                                + String.join(",", soulGravesPlus.hologramBackgroundColor));
+            }
         }
 
         if (soulGravesPlus.hologramTextShadow) {
