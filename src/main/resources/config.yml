@@ -28,28 +28,41 @@ hologram:
 
     # Hologram settings
     # Holograms are displayed above the soul's grave
-    # This features requires FancyHolograms or DecentHolograms
 
     # Enable/Disable this feature entirely
     enabled: true
 
-    # Hologram manager to use (which plugin you use for holograms)
-    # This can be either FancyHolograms or DecentHolograms -> defaults to FancyHolograms
-    hologram-manager: "FancyHolograms"
+    # Enable/Disable hologram persistence
+    # If enabled, holograms will persist through server restarts
+    persistence: false
 
     # Configure the location of the hologram relative to the soul's location
-    x-offset: 0.0 # x-offset from the soul's location
-    y-offset: 3.5 # y-offset from the soul's location
-    z-offset: 0.0 # z-offset from the soul's location
+    x-offset: 0.0
+    y-offset: 3.5
+    z-offset: 0.0
 
-    # Configure the background of the hologram, defaults to the default hologram background
-    # This has no effect if you are using DecentHolograms
-    custom-background: false # enable custom background
+    # Scale of the hologram (x,y,z)
+    scale: "1.0,1.0,1.0"
+
+    # Billboard setting (CENTER, FIXED, HORIZONTAL, VERTICAL)
+    billboard: "CENTER"
+
+    # Text alignment (CENTER, LEFT, RIGHT)
+    text-alignment: "CENTER"
+    
+    # See through blocks?
+    see-through: false
+
+    # Configure the background
+    custom-background: false
     background-color: "1,100,255,79" # ARGB format
 
-    # Configure the text shadow of the hologram
-    # This has no effect if you are using DecentHolograms
-    text-shadow: false # enable text shadow
+    # Configure the text shadow
+    text-shadow: false 
+    
+    # Shadow details (Only applies if text-shadow is true)
+    shadow-radius: 0
+    shadow-strength: 1.0
 
     # Configure the text of the hologram, using MiniMessage and/or Legacy Formatting
 
@@ -71,7 +84,7 @@ hologram:
         - "&b [ᴛᴏᴜᴄʜ ᴛʜᴇ ɢʀᴀᴠᴇ ᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴇꜱꜱᴇɴᴄᴇ] &r"
         - ""
 
-    # How fast should we update the holograms? (in ticks)
+    # How frequent should we update the holograms in ticks? Default: 10 (0.5 seconds)
     update-ticks: 10
 
 death-coordinates:
