@@ -11,23 +11,12 @@ repositories {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"
     }
-    maven {
-        name = "sonatype"
-        url = "https://oss.sonatype.org/content/groups/public/"
-    }
     maven { url 'https://jitpack.io' }
-    maven {
-        name = "fancypluginsReleases"
-        url = uri("https://repo.fancyplugins.de/releases")
-    }
 }
 
 dependencies {
-    compileOnly "io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT"
-    implementation 'com.github.FaultyFunctions:SoulGraves:v1.5.1'
-
-    compileOnly "de.oliver:FancyHolograms:2.9.0"
-    compileOnly 'com.github.decentsoftware-eu:decentholograms:2.9.9'
+    compileOnly "io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT"
+    compileOnly 'com.github.FaultyFunctions:SoulGraves:v1.5.1'
 }
 
 def targetJavaVersion = 21
