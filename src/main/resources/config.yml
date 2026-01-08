@@ -34,7 +34,7 @@ hologram:
 
     # Enable/Disable hologram persistence
     # If enabled, holograms will persist through server restarts
-    persistence: false
+    persistent: false
 
     # Configure the location of the hologram relative to the soul's location
     x-offset: 0.0
