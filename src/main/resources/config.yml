@@ -58,7 +58,7 @@ hologram:
     background-color: "1,100,255,79" # ARGB format
 
     # Configure the text shadow
-    text-shadow: false 
+    text-shadow: false
     
     # Shadow details (Only applies if text-shadow is true)
     shadow-radius: 0
@@ -84,7 +84,7 @@ hologram:
         - "&b [ᴛᴏᴜᴄʜ ᴛʜᴇ ɢʀᴀᴠᴇ ᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴇꜱꜱᴇɴᴄᴇ] &r"
         - ""
 
-    # How frequent should we update the holograms in ticks? Default: 10 (0.5 seconds)
+    # How frequently should we update the holograms in ticks? Default: 10 (0.5 seconds)
     update-ticks: 10
 
 death-coordinates:

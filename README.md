@@ -1,9 +1,7 @@
-# SoulGravesPlus
-
-A free, open source addon for [Soul Graves](https://github.com/FaultyFunctions/SoulGraves) with a variety of useful features. Built for 1.21+.
-
 <div align="center">
-[Download on SpigotMC](https://www.spigotmc.org/resources/soul-graves-plus.122635/)
+<h1>SoulGravesPlus</h1>
+<p>A free, open source addon for <a href="https://github.com/FaultyFunctions/SoulGraves">Soul Graves</a> with a variety of useful features. Built for 1.21+.</p>
+<a href="https://www.spigotmc.org/resources/soul-graves-plus.122635/">Download on SpigotMC</a>
 </div>
 
 ## Features

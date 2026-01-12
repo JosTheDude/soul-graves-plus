@@ -144,6 +144,7 @@ public final class SoulGravesPlus extends JavaPlugin {
                 this.getConfig().getString("hologram.billboard", "CENTER").toUpperCase()
             );
         } catch (IllegalArgumentException e) {
+            this.getLogger().warning("Invalid billboard value: " + this.getConfig().getString("hologram.billboard") + ", using default CENTER");
             this.hologramBillboard = Display.Billboard.CENTER;
         }
 
@@ -152,6 +153,7 @@ public final class SoulGravesPlus extends JavaPlugin {
                 this.getConfig().getString("hologram.text-alignment", "CENTER").toUpperCase()
             );
         } catch (IllegalArgumentException e) {
+            this.getLogger().warning("Invalid text alignment value: " + this.getConfig().getString("hologram.text-alignment") + ", using default CENTER");
             this.hologramTextAlignment = TextDisplay.TextAlignment.CENTER;
         }
 
