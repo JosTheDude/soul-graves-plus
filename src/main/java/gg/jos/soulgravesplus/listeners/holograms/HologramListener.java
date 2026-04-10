@@ -62,6 +62,7 @@ public class HologramListener implements Listener {
                     display.setBackgroundColor(Color.fromARGB(a, r, g, b));
                 } catch (Exception e) {
                     soulGravesPlus.getLogger().warning("Failed to parse hologram background color, using default: " + e.getMessage());
+                    soulGravesPlus.getLogger().warning("Failed to parse hologram background color, using default: " + e.getMessage());
                     display.setBackgroundColor(Color.fromARGB(79, 1, 100, 255));
                 }
             } else {
