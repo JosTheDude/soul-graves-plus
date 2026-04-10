@@ -2,8 +2,6 @@ package gg.jos.soulgravesplus.listeners;
 
 import dev.faultyfunctions.soulgraves.api.event.SoulSpawnEvent;
 import gg.jos.soulgravesplus.SoulGravesPlus;
-
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,14 +26,9 @@ public class DeathListener implements Listener {
         int y = soulLocation.getBlockY();
         int z = soulLocation.getBlockZ();
         String worldName = soulGravesPlus.getWorldAlias(soulLocation.getWorld().getName());
-
-        String deathMessage = ChatColor.translateAlternateColorCodes('&', soulGravesPlus.deathCoordinatesMessage
-                .replace("{soulOwner}", player.getName())
-                .replace("{x}", String.valueOf(x))
-                .replace("{y}", String.valueOf(y))
-                .replace("{z}", String.valueOf(z))
-                .replace("{world}", worldName));
-
-        player.sendMessage(deathMessage);
+        player.sendMessage(soulGravesPlus.parseMiniMessage(
+                soulGravesPlus.deathCoordinatesMessage,
+                soulGravesPlus.createLocationPlaceholders(player.getName(), worldName, x, y, z)
+        ));
     }
 }

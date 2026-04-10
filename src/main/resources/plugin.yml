@@ -5,6 +5,7 @@ api-version: '1.21'
 depend: [ SoulGraves ]
 authors: [JosTheDude]
 website: https://jos.gg/
+folia-supported: true
 
 commands:
   soulgravesplus:

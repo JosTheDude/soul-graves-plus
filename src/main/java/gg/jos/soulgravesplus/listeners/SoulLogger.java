@@ -1,7 +1,6 @@
 package gg.jos.soulgravesplus.listeners;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
@@ -24,14 +23,16 @@ public class SoulLogger implements Listener {
             return;
 
         String worldName = soulGravesPlus.getWorldAlias(location.getWorld().getName());
-        String logMessage = ChatColor.translateAlternateColorCodes('&', configMessage)
-                .replace("{soulOwner}", player.getName())
-                .replace("{x}", String.valueOf(location.getBlockX()))
-                .replace("{y}", String.valueOf(location.getBlockY()))
-                .replace("{z}", String.valueOf(location.getBlockZ()))
-                .replace("{world}", worldName);
-
-        Bukkit.getConsoleSender().sendMessage(logMessage);
+        Bukkit.getConsoleSender().sendMessage(soulGravesPlus.parseMiniMessage(
+                configMessage,
+                soulGravesPlus.createLocationPlaceholders(
+                        player.getName(),
+                        worldName,
+                        location.getBlockX(),
+                        location.getBlockY(),
+                        location.getBlockZ()
+                )
+        ));
     }
 
     @EventHandler

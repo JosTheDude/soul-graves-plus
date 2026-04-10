@@ -7,6 +7,10 @@ import gg.jos.soulgravesplus.listeners.SoulLogger;
 import gg.jos.soulgravesplus.listeners.holograms.HologramListener;
 import gg.jos.soulgravesplus.listeners.holograms.HologramUpdater;
 import gg.jos.soulgravesplus.utils.UpdateChecker;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -17,7 +21,9 @@ import org.bukkit.util.Vector;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -56,6 +62,7 @@ public final class SoulGravesPlus extends JavaPlugin {
     public SimpleDateFormat dateTimeFormatter;
     public String timeFormat;
     private ConcurrentHashMap<String, String> worldNameAliases;
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     private final int resourceId = 122635;
 
@@ -75,15 +82,15 @@ public final class SoulGravesPlus extends JavaPlugin {
         }
 
         // Startup Messages
-        this.getLogger().info("\u001B[32mEnabled!\u001B[0m \u001B[35mMade by\u001B[0m \u001B[35mJosTheDude\u001B[0m \u001B[35mwith\u001B[0m \u001B[31m<3\u001B[0m \u001B[35mand cookies!\u001B[0m");
-        this.getLogger().info("\u001B[33mPlease report any issues here:\u001B[0m \u001B[35m\u001B[4mhttps://github.com/JosTheDude/SoulGravesPlus\u001B[0m");
-        this.getLogger().info("\u001B[33mLike my work? Support me here:\u001B[0m \u001B[35m\u001B[4mhttps://ko-fi.com/jossydev\u001B[0m");
+        Bukkit.getConsoleSender().sendMessage(parseMiniMessage("<green>Enabled!</green> <light_purple>Made by JosTheDude with</light_purple> <red><3</red> <light_purple>and cookies!</light_purple>"));
+        Bukkit.getConsoleSender().sendMessage(parseMiniMessage("<yellow>Please report any issues here:</yellow> <light_purple><underlined>https://github.com/JosTheDude/SoulGravesPlus</underlined></light_purple>"));
+        Bukkit.getConsoleSender().sendMessage(parseMiniMessage("<yellow>Like my work? Support me here:</yellow> <light_purple><underlined>https://ko-fi.com/jossydev</underlined></light_purple>"));
 
         new UpdateChecker(this, resourceId).getVersion(version -> {
             if (this.getPluginMeta().getVersion().equals(version)) {
-                getLogger().info("\u001B[32mYou are using the latest version!\u001B[0m");
+                Bukkit.getConsoleSender().sendMessage(parseMiniMessage("<green>You are using the latest version!</green>"));
             } else {
-                getLogger().info("\u001B[31mA new version of SoulGravesPlus is available! Download it here: \u001B[0m \u001B[35mhttps://www.spigotmc.org/resources/soulgravesplus.122635/\u001B[0m");
+                Bukkit.getConsoleSender().sendMessage(parseMiniMessage("<red>A new version of SoulGravesPlus is available! Download it here:</red> <light_purple>https://www.spigotmc.org/resources/soulgravesplus.122635/</light_purple>"));
             }
         });
 
@@ -105,15 +112,15 @@ public final class SoulGravesPlus extends JavaPlugin {
 
         this.logSoulSpawnsMessage = this.getConfig().getString(
                 "logger.log-soul-spawns-message",
-                "\u001B[37m[SoulTracker] \u001B[92mSoul spawned for \u001B[93m{soulOwner}\u001B[92m at \u001B[93m{x} {y} {z}\u001B[0m"
+                "<gray>[SoulTracker]</gray> <green>Soul spawned for <yellow>{soulOwner}</yellow> at <yellow>{x} {y} {z}</yellow></green>"
         );
         this.logSoulPickupsMessage = this.getConfig().getString(
                 "logger.log-soul-pickups-message",
-                "\u001B[37m[SoulTracker] \u001B[93m{soulOwner}\u001B[92m picked up a soul at \u001B[93m{x} {y} {z}\u001B[0m"
+                "<gray>[SoulTracker]</gray> <yellow>{soulOwner}</yellow><green> picked up a soul at <yellow>{x} {y} {z}</yellow></green>"
         );
         this.logSoulExplosionsMessage = this.getConfig().getString(
                 "logger.log-soul-explosions-message",
-                "\u001B[37m[SoulTracker] \u001B[91mSoul for \u001B[93m{soulOwner}\u001B[91m exploded at \u001B[93m{x} {y} {z}\u001B[0m"
+                "<gray>[SoulTracker]</gray> <red>Soul for <yellow>{soulOwner}</yellow> exploded at <yellow>{x} {y} {z}</yellow></red>"
         );
 
         // Hologram Features
@@ -140,7 +147,6 @@ public final class SoulGravesPlus extends JavaPlugin {
                 this.hologramScale = new Vector(1, 1, 1);
             }
         } else {
-            this.getLogger().warning("Failed to parse hologram scale: " + e.getMessage());
             this.getLogger().warning("Invalid hologram scale format! Expected 'x,y,z', using default.");
             this.hologramScale = new Vector(1, 1, 1);
         }
@@ -182,7 +188,7 @@ public final class SoulGravesPlus extends JavaPlugin {
 
         // Death Coordinates Feature
         this.deathCoordinatesEnabled = this.getConfig().getBoolean("death-coordinates.enabled", true);
-        this.deathCoordinatesMessage = this.getConfig().getString("death-coordinates.message", "&c☠ You died at {x} {y} {z}");
+        this.deathCoordinatesMessage = this.getConfig().getString("death-coordinates.message", "<red>☠ You died at <white>{x} {y} {z}</white></red>");
 
         // Formatting
         this.dateTimeFormatter = new SimpleDateFormat(this.getConfig().getString("options.date-format", "yyyy-MM-dd HH:mm:ss"));
@@ -238,10 +244,10 @@ public final class SoulGravesPlus extends JavaPlugin {
         HologramListener hologramListener = new HologramListener(this);
         this.getServer().getPluginManager().registerEvents(hologramListener, this);
             
-        this.getServer().getScheduler().runTaskTimer(
-            this, 
-            new HologramUpdater(this, hologramListener), 
-            this.hologramUpdateTicks, 
+        this.getServer().getGlobalRegionScheduler().runAtFixedRate(
+            this,
+            task -> new HologramUpdater(this, hologramListener).run(),
+            this.hologramUpdateTicks,
             this.hologramUpdateTicks
         );
             
@@ -270,6 +276,12 @@ public final class SoulGravesPlus extends JavaPlugin {
     }
 
     public List<String> parseHologramLines(Soul soul) {
+        return this.hologramLines.stream()
+                .map(line -> replaceSoulPlaceholders(line, soul))
+                .toList();
+    }
+
+    public String replaceSoulPlaceholders(String message, Soul soul) {
         long timeLeft;
         OfflinePlayer player = Bukkit.getOfflinePlayer(soul.getOwnerUUID());
 
@@ -294,20 +306,37 @@ public final class SoulGravesPlus extends JavaPlugin {
         String invAmount = String.valueOf(soul.getInventory().size());
         String expAmount = String.valueOf(soul.getXp());
 
-        // Replace placeholders in the config lines
-        return this.hologramLines.stream()
-                .map(line -> line
-                        .replace("{soulOwner}", Objects.requireNonNullElse(soulOwner, "unknown"))
-                        .replace("{soulFormattedDeathTime}", formattedDeathTime)
-                        .replace("{soulFormattedExpireTime}", formattedExpireTime)
-                        .replace("{soulFormattedTimeLeft}", formattedTimeLeft)
-                        .replace("{soulRawDeathTime}", rawDeathTime)
-                        .replace("{soulRawExpireTime}", rawExpireTime)
-                        .replace("{soulRawTimeLeft}", rawTimeLeft)
-                        .replace("{soulInventoryAmount}", invAmount)
-                        .replace("{soulExperienceAmount}", expAmount)
-                        .replace("&", "§"))
-                .toList();
+        return message
+                .replace("{soulOwner}", Objects.requireNonNullElse(soulOwner, "unknown"))
+                .replace("{soulFormattedDeathTime}", formattedDeathTime)
+                .replace("{soulFormattedExpireTime}", formattedExpireTime)
+                .replace("{soulFormattedTimeLeft}", formattedTimeLeft)
+                .replace("{soulRawDeathTime}", rawDeathTime)
+                .replace("{soulRawExpireTime}", rawExpireTime)
+                .replace("{soulRawTimeLeft}", rawTimeLeft)
+                .replace("{soulInventoryAmount}", invAmount)
+                .replace("{soulExperienceAmount}", expAmount);
+    }
+
+    public Component parseMiniMessage(String message) {
+        return this.miniMessage.deserialize(message);
+    }
+
+    public Component parseMiniMessage(String message, Map<String, String> placeholders) {
+        TagResolver[] resolvers = placeholders.entrySet().stream()
+                .map(entry -> Placeholder.parsed(entry.getKey(), entry.getValue()))
+                .toArray(TagResolver[]::new);
+        return this.miniMessage.deserialize(message, resolvers);
+    }
+
+    public Map<String, String> createLocationPlaceholders(String soulOwner, String world, int x, int y, int z) {
+        Map<String, String> placeholders = new LinkedHashMap<>();
+        placeholders.put("soulOwner", Objects.requireNonNullElse(soulOwner, "unknown"));
+        placeholders.put("world", world);
+        placeholders.put("x", String.valueOf(x));
+        placeholders.put("y", String.valueOf(y));
+        placeholders.put("z", String.valueOf(z));
+        return placeholders;
     }
 
     public String getWorldAlias(String worldName) {

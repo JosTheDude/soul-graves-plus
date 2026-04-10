@@ -6,8 +6,6 @@ import dev.faultyfunctions.soulgraves.api.event.SoulPickupEvent;
 import dev.faultyfunctions.soulgraves.api.event.SoulSpawnEvent;
 import dev.faultyfunctions.soulgraves.utils.Soul;
 import gg.jos.soulgravesplus.SoulGravesPlus;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.TextDisplay;
@@ -18,10 +16,11 @@ import org.bukkit.util.Transformation;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 
 public class HologramListener implements Listener {
     private final SoulGravesPlus soulGravesPlus;
-    public static final Map<UUID, UUID> activeHolograms = new ConcurrentHashMap<>();
+    public static final Map<UUID, ActiveHologram> activeHolograms = new ConcurrentHashMap<>();
 
     public HologramListener(SoulGravesPlus soulGravesPlus) {
         this.soulGravesPlus = soulGravesPlus;
@@ -66,8 +65,7 @@ public class HologramListener implements Listener {
                         display.setBackgroundColor(Color.fromARGB(79, 1, 100, 255));
                     }
                 } else {
-                    soulGravesPlus.getLogger().warning("Failed to parse hologram background color, using default: " + e.getMessage());
-                    soulGravesPlus.getLogger().warning("Failed to parse hologram background color, using default: " + e.getMessage());
+                    soulGravesPlus.getLogger().warning("Failed to parse hologram background color, using default.");
                     display.setBackgroundColor(Color.fromARGB(79, 1, 100, 255));
                 }
             } else {
@@ -83,7 +81,7 @@ public class HologramListener implements Listener {
 
             updateText(display, event.getSoul());
 
-            activeHolograms.put(event.getSoul().getMarkerUUID(), display.getUniqueId());
+            activeHolograms.put(event.getSoul().getMarkerUUID(), new ActiveHologram(event.getSoul(), display));
         });
     }
 
@@ -103,22 +101,31 @@ public class HologramListener implements Listener {
     }
 
     private void removeHologram(UUID soulUUID) {
-        UUID entityUUID = activeHolograms.remove(soulUUID);
-        if (entityUUID != null) {
-            var entity = org.bukkit.Bukkit.getEntity(entityUUID);
-            if (entity instanceof TextDisplay) {
-                entity.remove();
-            }
-        }
+        ActiveHologram hologram = activeHolograms.remove(soulUUID);
+        if (hologram == null)
+            return;
+
+        runForDisplay(hologram.display(), TextDisplay::remove);
     }
 
     public void updateText(TextDisplay display, Soul soul) {
         var lines = soulGravesPlus.parseHologramLines(soul);
-
         String joined = String.join("\n", lines);
+        display.text(soulGravesPlus.parseMiniMessage(joined));
+    }
 
-        Component content = LegacyComponentSerializer.legacyAmpersand().deserialize(joined);
+    public void queueUpdate(ActiveHologram hologram) {
+        runForDisplay(hologram.display(), display -> updateText(display, hologram.soul()));
+    }
 
-        display.text(content);
+    private void runForDisplay(TextDisplay display, Consumer<TextDisplay> action) {
+        display.getScheduler().run(
+                soulGravesPlus,
+                task -> action.accept(display),
+                () -> activeHolograms.values().removeIf(active -> active.display().getUniqueId().equals(display.getUniqueId()))
+        );
+    }
+
+    public record ActiveHologram(Soul soul, TextDisplay display) {
     }
 }

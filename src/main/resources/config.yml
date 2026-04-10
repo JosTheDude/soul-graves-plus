@@ -19,9 +19,9 @@ logger:
     # {z} for z coordinate
     # {world} for world name, configure world name aliases before for readability
 
-    log-soul-spawns-message: "&7[SoulTracker] &aSoul spawned for &e{soulOwner}&a at &e{x} {y} {z} &ain &e{world}"
-    log-soul-pickups-message: "&7[SoulTracker] &e{soulOwner}&a picked up a soul at &e{x} {y} {z} &ain &e{world}"
-    log-soul-explosions-message: "&7[SoulTracker] &cSoul for &e{soulOwner}&c exploded at &e{x} {y} {z} &cin &e{world}"
+    log-soul-spawns-message: "<gray>[SoulTracker]</gray> <green>Soul spawned for <yellow>{soulOwner}</yellow> at <yellow>{x} {y} {z}</yellow> in <yellow>{world}</yellow></green>"
+    log-soul-pickups-message: "<gray>[SoulTracker]</gray> <yellow>{soulOwner}</yellow><green> picked up a soul at <yellow>{x} {y} {z}</yellow> in <yellow>{world}</yellow></green>"
+    log-soul-explosions-message: "<gray>[SoulTracker]</gray> <red>Soul for <yellow>{soulOwner}</yellow> exploded at <yellow>{x} {y} {z}</yellow> in <yellow>{world}</yellow></red>"
 
 
 hologram:
@@ -64,7 +64,7 @@ hologram:
     shadow-radius: 0
     shadow-strength: 1.0
 
-    # Configure the text of the hologram, using MiniMessage and/or Legacy Formatting
+    # Configure the text of the hologram using MiniMessage
 
     # Placeholders:
     # {soulOwner} for soul owner (player)
@@ -78,10 +78,10 @@ hologram:
     # {soulExperienceAmount} for the amount of experience in the soul's inventory
     lines:
         - ""
-        - "&b☠ &lSOUL GRAVE&r &8» &f{soulOwner}"
-        - "&7Passed away at &f{soulFormattedDeathTime}"
+        - "<aqua>☠ <bold>SOUL GRAVE</bold> <dark_gray>»</dark_gray> <white>{soulOwner}</white></aqua>"
+        - "<gray>Passed away at <white>{soulFormattedDeathTime}</white></gray>"
         - ""
-        - "&b [ᴛᴏᴜᴄʜ ᴛʜᴇ ɢʀᴀᴠᴇ ᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴇꜱꜱᴇɴᴄᴇ] &r"
+        - "<aqua>[ᴛᴏᴜᴄʜ ᴛʜᴇ ɢʀᴀᴠᴇ ᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴇꜱꜱᴇɴᴄᴇ]</aqua>"
         - ""
 
     # How frequently should we update the holograms in ticks? Default: 10 (0.5 seconds)
@@ -95,7 +95,7 @@ death-coordinates:
     # Enable/Disable this feature entirely
     enabled: true
 
-    # Configure the text of the death coordinates message, using MiniMessage and/or Legacy Formatting
+    # Configure the text of the death coordinates message using MiniMessage
     # Placeholders:
     # {soulOwner} for soul owner (player)
     # {x} for x coordinate
@@ -103,7 +103,7 @@ death-coordinates:
     # {z} for z coordinate
     # {world} for world name, configure world name aliases before for readability
 
-    message: "&c☠ Your soul has spawned at &f{x} {y} {z}&c in the &f{world}"
+    message: "<red>☠ Your soul has spawned at <white>{x} {y} {z}</white> in the <white>{world}</white></red>"
 
 
 options:

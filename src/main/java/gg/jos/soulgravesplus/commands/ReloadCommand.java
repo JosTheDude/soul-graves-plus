@@ -18,19 +18,19 @@ public class ReloadCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         if (sender instanceof Player && !sender.hasPermission("soulgravesplus.admin")) {
-            sender.sendMessage("§cYou do not have permission to use this command. §7(soulgravesplus.admin)");
+            sender.sendMessage(soulGravesPlus.parseMiniMessage("<red>You do not have permission to use this command.</red> <gray>(soulgravesplus.admin)</gray>"));
             return true;
         }
 
         if (args.length == 0 || !args[0].equalsIgnoreCase("reload")) {
-            sender.sendMessage("§cUsage: /soulgravesplus reload");
+            sender.sendMessage(soulGravesPlus.parseMiniMessage("<red>Usage: /soulgravesplus reload</red>"));
             return true;
         }
 
         this.soulGravesPlus.reloadConfig();
         this.soulGravesPlus.updateConfig();
 
-        sender.sendMessage("§aSoulGravesPlus configuration reloaded.");
+        sender.sendMessage(soulGravesPlus.parseMiniMessage("<green>SoulGravesPlus configuration reloaded.</green>"));
         return true;
     }
 }
