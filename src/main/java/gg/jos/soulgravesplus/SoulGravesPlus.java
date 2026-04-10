@@ -134,6 +134,7 @@ public final class SoulGravesPlus extends JavaPlugin {
             double z = Double.parseDouble(scaleArgs[2]);
             this.hologramScale = new Vector(x, y, z);
         } catch (Exception e) {
+            this.getLogger().warning("Failed to parse hologram scale: " + e.getMessage());
             this.getLogger().warning("Invalid hologram scale format! Expected 'x,y,z', using default.");
             this.hologramScale = new Vector(1, 1, 1);
         }
