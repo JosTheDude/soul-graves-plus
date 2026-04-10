@@ -15,13 +15,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.util.Transformation;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class HologramListener implements Listener {
     private final SoulGravesPlus soulGravesPlus;
-    public static final Map<UUID, UUID> activeHolograms = new HashMap<>();
+    public static final Map<UUID, UUID> activeHolograms = new ConcurrentHashMap<>();
 
     public HologramListener(SoulGravesPlus soulGravesPlus) {
         this.soulGravesPlus = soulGravesPlus;
