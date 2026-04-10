@@ -112,15 +112,15 @@ public final class SoulGravesPlus extends JavaPlugin {
 
         this.logSoulSpawnsMessage = this.getConfig().getString(
                 "logger.log-soul-spawns-message",
-                "<gray>[SoulTracker]</gray> <green>Soul spawned for <yellow>{soulOwner}</yellow> at <yellow>{x} {y} {z}</yellow></green>"
+                "<gray>[SoulTracker]</gray> <green>Soul spawned for <yellow><soul_owner></yellow> at <yellow><x>, <y>, <z></yellow></green>"
         );
         this.logSoulPickupsMessage = this.getConfig().getString(
                 "logger.log-soul-pickups-message",
-                "<gray>[SoulTracker]</gray> <yellow>{soulOwner}</yellow><green> picked up a soul at <yellow>{x} {y} {z}</yellow></green>"
+                "<gray>[SoulTracker]</gray> <yellow><soul_owner></yellow><green> picked up a soul at <yellow><x>, <y>, <z></yellow></green>"
         );
         this.logSoulExplosionsMessage = this.getConfig().getString(
                 "logger.log-soul-explosions-message",
-                "<gray>[SoulTracker]</gray> <red>Soul for <yellow>{soulOwner}</yellow> exploded at <yellow>{x} {y} {z}</yellow></red>"
+                "<gray>[SoulTracker]</gray> <red>Soul for <yellow><soul_owner></yellow> exploded at <yellow><x>, <y>, <z></yellow></red>"
         );
 
         // Hologram Features
@@ -188,12 +188,12 @@ public final class SoulGravesPlus extends JavaPlugin {
 
         // Death Coordinates Feature
         this.deathCoordinatesEnabled = this.getConfig().getBoolean("death-coordinates.enabled", true);
-        this.deathCoordinatesMessage = this.getConfig().getString("death-coordinates.message", "<red>☠ You died at <white>{x} {y} {z}</white></red>");
+        this.deathCoordinatesMessage = this.getConfig().getString("death-coordinates.message", "<red>☠ Your soul has spawned at <white><x>, <y>, <z></white> in the <white><world></white>.</red>");
 
         // Formatting
         this.dateTimeFormatter = new SimpleDateFormat(this.getConfig().getString("options.date-format", "yyyy-MM-dd HH:mm:ss"));
-        this.timeFormat = this.getConfig().getString("options.time-format", "{m}m {s}s");
-        
+        this.timeFormat = this.getConfig().getString("options.time-format", "<m>:<s>");
+
         this.worldNameAliases = new ConcurrentHashMap<>();
         ConfigurationSection aliasesSection = this.getConfig().getConfigurationSection("options.world-name-aliases");
         if (aliasesSection != null) {
@@ -268,11 +268,11 @@ public final class SoulGravesPlus extends JavaPlugin {
         long milliseconds = TimeUnit.MILLISECONDS.toMillis(time) % 100;
 
         return this.timeFormat
-                .replace("{d}", String.format("%02d", days))
-                .replace("{h}", String.format("%02d", hours))
-                .replace("{s}", String.format("%02d", seconds))
-                .replace("{m}", String.format("%02d", minutes))
-                .replace("{x}", String.format("%02d", milliseconds));
+                .replace("<d>", String.format("%02d", days))
+                .replace("<h>", String.format("%02d", hours))
+                .replace("<s>", String.format("%02d", seconds))
+                .replace("<m>", String.format("%02d", minutes))
+                .replace("<x>", String.format("%02d", milliseconds));
     }
 
     public List<String> parseHologramLines(Soul soul) {
@@ -307,15 +307,15 @@ public final class SoulGravesPlus extends JavaPlugin {
         String expAmount = String.valueOf(soul.getXp());
 
         return message
-                .replace("{soulOwner}", Objects.requireNonNullElse(soulOwner, "unknown"))
-                .replace("{soulFormattedDeathTime}", formattedDeathTime)
-                .replace("{soulFormattedExpireTime}", formattedExpireTime)
-                .replace("{soulFormattedTimeLeft}", formattedTimeLeft)
-                .replace("{soulRawDeathTime}", rawDeathTime)
-                .replace("{soulRawExpireTime}", rawExpireTime)
-                .replace("{soulRawTimeLeft}", rawTimeLeft)
-                .replace("{soulInventoryAmount}", invAmount)
-                .replace("{soulExperienceAmount}", expAmount);
+                .replace("<soul_owner>", Objects.requireNonNullElse(soulOwner, "unknown"))
+                .replace("<soul_formatted_death_time>", formattedDeathTime)
+                .replace("<soul_formatted_expire_time>", formattedExpireTime)
+                .replace("<soul_formatted_time_left>", formattedTimeLeft)
+                .replace("<soul_raw_death_time>", rawDeathTime)
+                .replace("<soul_raw_expire_time>", rawExpireTime)
+                .replace("<soul_raw_time_left>", rawTimeLeft)
+                .replace("<soul_inventory_amount>", invAmount)
+                .replace("<soul_experience_amount>", expAmount);
     }
 
     public Component parseMiniMessage(String message) {
@@ -331,7 +331,7 @@ public final class SoulGravesPlus extends JavaPlugin {
 
     public Map<String, String> createLocationPlaceholders(String soulOwner, String world, int x, int y, int z) {
         Map<String, String> placeholders = new LinkedHashMap<>();
-        placeholders.put("soulOwner", Objects.requireNonNullElse(soulOwner, "unknown"));
+        placeholders.put("soul_owner", Objects.requireNonNullElse(soulOwner, "unknown"));
         placeholders.put("world", world);
         placeholders.put("x", String.valueOf(x));
         placeholders.put("y", String.valueOf(y));

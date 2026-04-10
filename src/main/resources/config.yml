@@ -13,15 +13,15 @@ logger:
     # Log format
 
     # Placeholders:
-    # {soulOwner} for soul owner (player)
-    # {x} for x coordinate
-    # {y} for y coordinate
-    # {z} for z coordinate
-    # {world} for world name, configure world name aliases before for readability
+    # <soul_owner> for soul owner (player)
+    # <x> for x coordinate
+    # <y> for y coordinate
+    # <z> for z coordinate
+    # <world> for world name, configure world name aliases before for readability
 
-    log-soul-spawns-message: "<gray>[SoulTracker]</gray> <green>Soul spawned for <yellow>{soulOwner}</yellow> at <yellow>{x} {y} {z}</yellow> in <yellow>{world}</yellow></green>"
-    log-soul-pickups-message: "<gray>[SoulTracker]</gray> <yellow>{soulOwner}</yellow><green> picked up a soul at <yellow>{x} {y} {z}</yellow> in <yellow>{world}</yellow></green>"
-    log-soul-explosions-message: "<gray>[SoulTracker]</gray> <red>Soul for <yellow>{soulOwner}</yellow> exploded at <yellow>{x} {y} {z}</yellow> in <yellow>{world}</yellow></red>"
+    log-soul-spawns-message: "<gray>[SoulTracker]</gray> <green>Soul spawned for <yellow><soul_owner></yellow> at <yellow><x>, <y>, <z></yellow> in <yellow><world></yellow></green>"
+    log-soul-pickups-message: "<gray>[SoulTracker]</gray> <yellow><soul_owner></yellow><green> picked up a soul at <yellow><x>, <y>, <z></yellow> in <yellow><world></yellow></green>"
+    log-soul-explosions-message: "<gray>[SoulTracker]</gray> <red>Soul for <yellow><soul_owner></yellow> exploded at <yellow><x>, <y>, <z></yellow> in <yellow><world></yellow></red>"
 
 
 hologram:
@@ -67,19 +67,19 @@ hologram:
     # Configure the text of the hologram using MiniMessage
 
     # Placeholders:
-    # {soulOwner} for soul owner (player)
-    # {soulFormattedDeathTime} for when the soul was created (when the player died)
-    # {soulRawDeathTime} for when the soul was created - when the player died (in milliseconds)
-    # {soulFormattedExpireTime} for when the soul will expire
-    # {soulRawExpireTime} for when the soul will expire (in milliseconds)
-    # {soulFormattedTimeLeft} for how long the soul has left until it expires and explodes
-    # {soulRawTimeLeft} for how long the soul has left until it expires and explodes (in milliseconds)
-    # {soulInventoryAmount} for the amount of items in the soul's inventory (number of stacks)
-    # {soulExperienceAmount} for the amount of experience in the soul's inventory
+    # <soul_owner> for soul owner (player)
+    # <soul_formatted_death_time> for when the soul was created (when the player died)
+    # <soul_raw_death_time> for when the soul was created - when the player died (in milliseconds)
+    # <soul_formatted_expire_time> for when the soul will expire
+    # <soul_raw_expire_time> for when the soul will expire (in milliseconds)
+    # <soul_formatted_time_left> for how long the soul has left until it expires and explodes
+    # <soul_raw_time_left> for how long the soul has left until it expires and explodes (in milliseconds)
+    # <soul_inventory_amount> for the amount of items in the soul's inventory (number of stacks)
+    # <soul_experience_amount> for the amount of experience in the soul's inventory
     lines:
         - ""
-        - "<aqua>☠ <bold>SOUL GRAVE</bold> <dark_gray>»</dark_gray> <white>{soulOwner}</white></aqua>"
-        - "<gray>Passed away at <white>{soulFormattedDeathTime}</white></gray>"
+        - "<aqua>☠ <bold>SOUL GRAVE</bold> <dark_gray>»</dark_gray> <white><soul_owner></white></aqua>"
+        - "<gray>Passed away at <white><soul_formatted_death_time></white></gray>"
         - ""
         - "<aqua>[ᴛᴏᴜᴄʜ ᴛʜᴇ ɢʀᴀᴠᴇ ᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴇꜱꜱᴇɴᴄᴇ]</aqua>"
         - ""
@@ -97,13 +97,13 @@ death-coordinates:
 
     # Configure the text of the death coordinates message using MiniMessage
     # Placeholders:
-    # {soulOwner} for soul owner (player)
-    # {x} for x coordinate
-    # {y} for y coordinate
-    # {z} for z coordinate
-    # {world} for world name, configure world name aliases before for readability
+    # <soul_owner> for soul owner (player)
+    # <x> for x coordinate
+    # <y> for y coordinate
+    # <z> for z coordinate
+    # <world> for world name, configure world name aliases before for readability
 
-    message: "<red>☠ Your soul has spawned at <white>{x} {y} {z}</white> in the <white>{world}</white></red>"
+    message: "<red>☠ Your soul has spawned at <white><x>, <y>, <z></white> in the <white><world></white>.</red>"
 
 
 options:
@@ -112,8 +112,8 @@ options:
     date-format: "yyyy-MM-dd HH:mm:ss"
 
     # Time format
-    # {d} for days, {h} for hours, {m} for minutes, {s} for seconds, {x} for milliseconds
-    time-format: "{m}:{s}:{x}"
+    # <d> for days, <h> for hours, <m> for minutes, <s> for seconds, <x> for milliseconds
+    time-format: "<m>:<s>"
 
     world-name-aliases:
         # World name aliases
