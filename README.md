@@ -1,9 +1,6 @@
 <div align="center">
 <h1>SoulGravesPlus</h1>
-<p>A free, open source addon for <a href="https://github.com/FaultyFunctions/SoulGraves">Soul Graves</a> with a variety of useful features. Built for 1.21+.</p>
-<a href="https://www.spigotmc.org/resources/soul-graves-plus.122635/">Download on SpigotMC</a>
-</div>
-
+[Download on SpigotMC](https://www.spigotmc.org/resources/soul-graves-plus.122635/)
 ## Features
 
 - Customizable hologram for Soul Graves
