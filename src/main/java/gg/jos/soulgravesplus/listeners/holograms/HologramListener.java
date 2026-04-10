@@ -54,13 +54,18 @@ public class HologramListener implements Listener {
             display.setSeeThrough(soulGravesPlus.hologramSeeThrough);
 
             if (soulGravesPlus.hologramBackground) {
-                try {
-                    int a = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[0]);
-                    int r = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[1]);
-                    int g = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[2]);
-                    int b = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[3]);
-                    display.setBackgroundColor(Color.fromARGB(a, r, g, b));
-                } catch (Exception e) {
+                if (soulGravesPlus.hologramBackgroundColor != null
+                        && soulGravesPlus.hologramBackgroundColor.length == 4) {
+                    try {
+                        int a = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[0]);
+                        int r = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[1]);
+                        int g = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[2]);
+                        int b = Integer.parseInt(soulGravesPlus.hologramBackgroundColor[3]);
+                        display.setBackgroundColor(Color.fromARGB(a, r, g, b));
+                    } catch (Exception e) {
+                        display.setBackgroundColor(Color.fromARGB(79, 1, 100, 255));
+                    }
+                } else {
                     soulGravesPlus.getLogger().warning("Failed to parse hologram background color, using default: " + e.getMessage());
                     soulGravesPlus.getLogger().warning("Failed to parse hologram background color, using default: " + e.getMessage());
                     display.setBackgroundColor(Color.fromARGB(79, 1, 100, 255));
