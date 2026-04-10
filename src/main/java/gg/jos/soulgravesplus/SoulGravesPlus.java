@@ -127,13 +127,19 @@ public final class SoulGravesPlus extends JavaPlugin {
         this.hologramYOffset = this.getConfig().getDouble("hologram.y-offset", 3.5);
         this.hologramZOffset = this.getConfig().getDouble("hologram.z-offset", 0.0);
 
-        String[] scaleArgs = this.getConfig().getString("hologram.scale", "1.0,1.0,1.0").split(",");
-        try {
-            double x = Double.parseDouble(scaleArgs[0]);
-            double y = Double.parseDouble(scaleArgs[1]);
-            double z = Double.parseDouble(scaleArgs[2]);
-            this.hologramScale = new Vector(x, y, z);
-        } catch (Exception e) {
+        String scaleString = this.getConfig().getString("hologram.scale", "1.0,1.0,1.0");
+        String[] scaleArgs = scaleString != null ? scaleString.split(",") : new String[0];
+        if (scaleArgs.length == 3) {
+            try {
+                double x = Double.parseDouble(scaleArgs[0].trim());
+                double y = Double.parseDouble(scaleArgs[1].trim());
+                double z = Double.parseDouble(scaleArgs[2].trim());
+                this.hologramScale = new Vector(x, y, z);
+            } catch (Exception e) {
+                this.getLogger().warning("Invalid hologram scale format! Expected 'x,y,z', using default.");
+                this.hologramScale = new Vector(1, 1, 1);
+            }
+        } else {
             this.getLogger().warning("Failed to parse hologram scale: " + e.getMessage());
             this.getLogger().warning("Invalid hologram scale format! Expected 'x,y,z', using default.");
             this.hologramScale = new Vector(1, 1, 1);
